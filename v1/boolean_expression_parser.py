@@ -102,7 +102,7 @@ def prepare_table(expr: Expression):
 
 
 
-def simulate(expr: Expression, table: Table):
+def simulate_full(expr: Expression, table: Table):
 
     tokens = expr[0]
     variables = expr[1]
@@ -136,8 +136,6 @@ def simulate(expr: Expression, table: Table):
     
 
 
-
-
 def main():
     '''Main program loop.'''
 
@@ -155,7 +153,7 @@ def main():
         debug_print(f'Variables: {",".join(expr1[1])}')
 
         table1 = prepare_table(expr1)
-        table1 = simulate(expr1, table1)
+        table1 = simulate_full(expr1, table1)
 
         print_table(expr1, table1)
 
