@@ -16,12 +16,27 @@ internal class Program
     /// <param name="expression">The expression to evaluate</param>
     /// <param name="secondExpression">The expression to compare to (if using Compare sub-command)</param>
 
-    static void Main(Command subCommand = Command.Evaluate, string? expression, string? secondExpression)
+    static void Main(Command? subCommand, string? expression, string? secondExpression)
     {
         Console.WriteLine("Tom's boolean expression parser and evaluator.");
         Console.WriteLine($"Command: {subCommand}");
         Console.WriteLine($"Expression: {expression ?? "Not specified"}");
         Console.WriteLine($"Second Expression: {secondExpression ?? "Not specified"}");
+
+        if (subCommand is null)
+        {
+            Console.WriteLine("Enter a command (Evaluate or Compare):");
+            Console.WriteLine("> ");
+            var command = Console.ReadLine();
+            subCommand = command.ToLower() switch {
+                "evaluate" => Command.Evaluate,
+                "e" => Command.Evaluate,
+                "compare" => Command.Compare,
+                "c" => Command.Compare,
+                _ => throw new ArgumentException($"Invalid command: {command}")
+            };
+            
+        }
 
         switch (subCommand)
         {
@@ -33,7 +48,13 @@ internal class Program
                     expression = Console.ReadLine();
                 }
 
+                var parsed = RunExpression(expression);
+
+                Console.WriteLine($"Truth table for '{expression}':");
+                Console.WriteLine(parsed.TableString);
+
                 break;
+
             case Command.Compare:
                 if (expression is null)
                 {
@@ -48,11 +69,22 @@ internal class Program
                     secondExpression = Console.ReadLine();
                 }
 
+                var parsed1 = RunExpression(expression);
+                var parsed2 = RunExpression(secondExpression);
+
+                Console.WriteLine($"Truth table for '{expression}':");
+                Console.WriteLine(parsed1.TableString);
+
+                Console.WriteLine($"Truth table for '{secondExpression}':");
+                Console.WriteLine(parsed2.TableString);
+
+                bool equal = parsed1.ASTString == parsed2.ASTString;
+                Console.WriteLine($"The two expressions are {(equal ? "equal" : "not equal")}.");
+
                 break;
+
+
         }
-
-
-
     }
 
     static ParsedExpression RunExpression(string expression)
