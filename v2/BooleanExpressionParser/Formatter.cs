@@ -4,47 +4,14 @@ namespace BooleanExpressionParser;
 
 class Formatter
 {
-    public static string FormatAstAsInfix(Node root)
+    public static string FormatInfixTokens(IEnumerable<Token> tokens)
     {
         var sb = new StringBuilder();
 
-        void Visit(Node node)
+        foreach (var token in tokens)
         {
-            switch (node)
-            {
-                case AndOperatorNode op:
-                    VisitAndWrap(op.Left);
-                    sb.Append(" AND ");
-                    VisitAndWrap(op.Right!);
-                    break;
-
-                case OrOperatorNode op:
-                    VisitAndWrap(op.Left);
-                    sb.Append(" OR ");
-                    VisitAndWrap(op.Right!);
-                    break;
-
-                case NotOperatorNode op:
-                    sb.Append($"NOT (");
-                    Visit(op.Left);
-                    sb.Append(")");
-                    break;
-
-                case VariableNode var:
-                    sb.Append(var.Name);
-                    break;
-
-            }
+            sb.Append(token.ToString());
         }
-
-        void VisitAndWrap(Node node)
-        {
-            if (node is AndOperatorNode || node is OrOperatorNode) sb.Append("(");
-            Visit(node);
-            if (node is AndOperatorNode || node is OrOperatorNode) sb.Append(")");
-        }
-
-        Visit(root);
 
         return sb.ToString();
     }

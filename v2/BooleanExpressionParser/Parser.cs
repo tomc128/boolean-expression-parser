@@ -94,7 +94,10 @@ class Parser
             }
         }
 
-        if (stack.Count != 1) throw new Exception("Expression invalid - stack not empty");
+        if (stack.Count != 1)
+        {
+            throw new Exception($"Expression invalid - stack not empty. Stack: {String.Join(", ", stack)}");
+        }
 
         var root = stack.Pop();
 

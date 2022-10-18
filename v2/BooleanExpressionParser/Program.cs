@@ -12,17 +12,17 @@ internal class Program
 
         foreach (var expression in args)
         {
-            var trimmed = expression.Replace(" ", "");
-            var tokeniser = new Tokeniser(trimmed);
+            var tokeniser = new Tokeniser(expression);
             var infixTokens = tokeniser.Tokenise();
 
             var parser = new Parser();
             var prefixTokens = parser.ParseTokens(infixTokens);
-            var ast = parser.GrowAst(prefixTokens);
 
             Console.WriteLine($"Expression: {expression}");
-            Console.WriteLine($"Infix: {Formatter.FormatAstAsInfix(ast.Root)}");
             Console.WriteLine($"Prefix: {Formatter.FormatPrefixTokens(prefixTokens)}");
+            Console.WriteLine($"Infix: {Formatter.FormatInfixTokens(infixTokens)}");
+
+            var ast = parser.GrowAst(prefixTokens);
 
             var evaluator = new Evaluator(ast);
             var table = evaluator.EvaluateAll();
