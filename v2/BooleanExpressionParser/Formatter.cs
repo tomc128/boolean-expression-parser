@@ -33,16 +33,36 @@ class Formatter
     {
         var sb = new StringBuilder();
 
-        sb.AppendLine($"┏{Repeat('━', ast.Variables.Count * 3 + 2)}┳{Repeat('━', 8)}┓");
-        sb.AppendLine($"┃  {String.Join("  ", ast.Variables)}  ┃ Result ┃");
-        sb.AppendLine($"┣{Repeat('━', ast.Variables.Count * 3 + 2)}╋{Repeat('━', 8)}┫");
+        var variableLine = ast.Variables.Select(v => Repeat('━', v.Length + 2)).ToList();
 
-        foreach (var row in table)
+        sb.Append("┏━");
+        variableLine.ForEach(s => sb.Append(s));
+        sb.AppendLine("━┳━━━━━━━━┓");
+
+        sb.Append("┃ ");
+        ast.Variables.ForEach(v => sb.Append($" {v} "));
+        sb.AppendLine(" ┃ Result ┃");
+
+        sb.Append("┣━");
+        variableLine.ForEach(s => sb.Append(s));
+        sb.AppendLine("━╋━━━━━━━━┫");
+
+        foreach (bool[] row in table)
         {
-            sb.AppendLine($"┃  {String.Join("  ", row[0..^1].Select(b => b ? "1" : "0"))}  ┃   {(row[^1] ? "1" : "0")}    ┃");
+            sb.Append("┃ ");
+            for (int i = 0; i < row.Length - 1; i++)
+            {
+                string pad1 = Repeat(' ', (int)Math.Ceiling(ast.Variables[i].Length / 2.0f));
+                string pad2 = Repeat(' ', (int)Math.Floor(ast.Variables[i].Length / 2.0f));
+                sb.Append($"{pad1}{(row[i] ? '1' : '0')}{pad2} ");
+            }
+
+            sb.AppendLine($" ┃   {(row[^1] ? '1' : '0')}    ┃");
         }
 
-        sb.AppendLine($"┗{Repeat('━', ast.Variables.Count * 3 + 2)}┻{Repeat('━', 8)}┛");
+        sb.Append("┗━");
+        variableLine.ForEach(s => sb.Append(s));
+        sb.AppendLine("━┻━━━━━━━━┛");
 
         return sb.ToString();
     }
