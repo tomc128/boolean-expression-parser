@@ -1,4 +1,4 @@
-public record ParsedExpression
+record ParsedExpression
 {   
     public string Expression { get; set; }
     public string StrippedExpression { get; set; }

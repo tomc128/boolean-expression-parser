@@ -1,0 +1,218 @@
+﻿using System.Text;
+
+namespace BooleanExpressionParser;
+
+internal class Program
+{
+    /// <summary>
+    /// Tom's boolean expression parser and evaluator.
+    /// </summary>
+    /// <param name="expressions">The expression(s) to evaluate (and compare).</param>
+
+    static void Main(params string[] expressions)
+    {
+        Console.WriteLine("Welcome to the boolean expression parser and evaluator. Copyright © Tom Chapman 2022.");
+
+        if (subCommand is null)
+        {
+            Console.WriteLine("Enter a command (Evaluate or Compare):");
+            Console.WriteLine("> ");
+            var command = Console.ReadLine();
+            subCommand = command.ToLower() switch {
+                "evaluate" => Command.Evaluate,
+                "e" => Command.Evaluate,
+                "compare" => Command.Compare,
+                "c" => Command.Compare,
+                _ => throw new ArgumentException($"Invalid command: {command}")
+            };
+            
+        }
+
+        switch (subCommand)
+        {
+            case Command.Evaluate:
+                if (expression is null)
+                {
+                    Console.WriteLine("Enter expression:");
+                    Console.Write("> ");
+                    expression = Console.ReadLine();
+                }
+
+                var parsed = RunExpression(expression);
+
+                Console.WriteLine($"Truth table for '{expression}':");
+                Console.WriteLine(parsed.TableString);
+
+                break;
+
+            case Command.Compare:
+                if (expression is null)
+                {
+                    Console.WriteLine("Enter expression:");
+                    Console.Write("> ");
+                    expression = Console.ReadLine();
+                }
+                if (secondExpression is null)
+                {
+                    Console.WriteLine("Enter second expression:");
+                    Console.Write("> ");
+                    secondExpression = Console.ReadLine();
+                }
+
+                var parsed1 = RunExpression(expression);
+                var parsed2 = RunExpression(secondExpression);
+
+                Console.WriteLine($"Truth table for '{expression}':");
+                Console.WriteLine(parsed1.TableString);
+
+                Console.WriteLine($"Truth table for '{secondExpression}':");
+                Console.WriteLine(parsed2.TableString);
+
+                bool equal = parsed1.ASTString == parsed2.ASTString;
+                Console.WriteLine($"The two expressions are {(equal ? "equal" : "not equal")}.");
+
+                break;
+
+
+        }
+    }
+
+    static ParsedExpression RunExpression(string expression)
+    {
+        var strippedExpression = expression.Replace(" ", "");
+
+        var tokens = new List<Token>();
+        var reader = new StringReader(strippedExpression);
+
+        Console.WriteLine("Tokenising...");
+        Token token;
+        do
+        {
+            token = new Token(reader);
+            tokens.Add(token);
+        } while (token.Type != Token.TokenType.EXPR_END);
+        tokens.ForEach(x => Console.Write($"{x.Value} "));
+        Console.WriteLine();
+
+        Console.WriteLine("Converting to prefix (PN)...");
+        var polishTokens = ToPolish(tokens);
+        polishTokens.ForEach(x => Console.Write($"{x.Value} "));
+        Console.WriteLine();
+
+        Console.WriteLine("Building AST...");
+        var root = BuildAST(polishTokens);
+
+        Console.WriteLine("Stringifying AST...");
+        var text = StringifyAST(root);
+        Console.WriteLine($"Output expression: {text}");
+
+        Console.WriteLine("Retrieving variables...");
+        var variables = GetVariables(root);
+        Console.WriteLine($"Found {variables.Count} variables: {string.Join(", ", variables)}");
+
+        Console.WriteLine();
+        Console.WriteLine($"Input: {expression}");
+        Console.WriteLine($"Parsed: {text}");
+        Console.WriteLine();
+
+        int numCombinations = (int)Math.Pow(2, variables.Count);
+
+        var tableRows = new List<bool[]>();
+
+        Console.WriteLine($"Evaluating {numCombinations} combinations...");
+        for (int i = 0; i < numCombinations; i++)
+        {
+            var binary = Convert.ToString(i, 2).PadLeft(variables.Count, '0');
+            var values = new Dictionary<String, bool>();
+
+            for (int j = 0; j < variables.Count; j++)
+            {
+                values.Add(variables[j], binary[j] == '1');
+            }
+
+            var result = Evaluate(root, values);
+            Console.WriteLine($"Combination {i} ({binary}) = {(result ? "1" : "0")}");
+
+            tableRows.Add(values.Values.Append(result).ToArray());
+        }
+
+        Console.WriteLine();
+        Console.WriteLine($"Truth table for '{expression}':");
+
+        var table = FormatTruthTable(variables, tableRows);
+
+        return new ParsedExpression
+        {
+            Expression = expression,
+            StrippedExpression = strippedExpression,
+            Tokens = tokens,
+            PolishTokens = polishTokens,
+            RootNode = root,
+            ASTString = text,
+            Table = tableRows,
+            TableString = table
+        };
+
+    }
+
+    static List<String> GetVariables(Node root)
+    {
+        var variables = new List<String>();
+
+        void Visit(Node node)
+        {
+            switch (node)
+            {
+                case VariableNode var:
+                    variables.Add(var.Name);
+                    break;
+                case AndOperatorNode op:
+                    Visit(op.Left);
+                    Visit(op.Right!);
+                    break;
+                case OrOperatorNode op:
+                    Visit(op.Left);
+                    Visit(op.Right!);
+                    break;
+                case NotOperatorNode op:
+                    Visit(op.Left);
+                    break;
+            }
+        }
+
+        Visit(root);
+
+        variables.Sort();
+        return variables;
+    }
+
+    static bool Evaluate(Node root, Dictionary<String, bool> variables)
+    {
+        void Visit(Node node)
+        {
+            switch (node)
+            {
+                case VariableNode var:
+                    var.Value = variables[var.Name];
+                    break;
+                case AndOperatorNode op:
+                    Visit(op.Left);
+                    Visit(op.Right!);
+                    break;
+                case OrOperatorNode op:
+                    Visit(op.Left);
+                    Visit(op.Right!);
+                    break;
+                case NotOperatorNode op:
+                    Visit(op.Left);
+                    break;
+            }
+        }
+
+        Visit(root);
+
+        var result = root.Evaluate();
+
+        return result;
+    }
+}

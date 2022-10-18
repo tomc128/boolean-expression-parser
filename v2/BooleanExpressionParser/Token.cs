@@ -1,4 +1,4 @@
-public class Token
+class Token
 {
     static Dictionary<char, (TokenType, string)> tokenDict = new()
     {
