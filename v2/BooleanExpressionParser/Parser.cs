@@ -22,6 +22,10 @@ class Parser
                 case AndOperatorToken:
                 case OrOperatorToken:
                 case NotOperatorToken:
+                case XorOperatorToken:
+                case NandOperatorToken:
+                case NorOperatorToken:
+                case XnorOperatorToken:
                     while ((stack.Count > 0 && stack.Peek() is OperatorToken && stack.Peek() is not OpenParenToken) && ((stack.Peek() as OperatorToken)!.Precedence >= (token as OperatorToken)!.Precedence))
                     {
                         output.Enqueue(stack.Pop());
@@ -42,7 +46,8 @@ class Parser
                     if (stack.Peek() is OpenParenToken)
                     {
                         stack.Pop();
-                        if (stack.Count > 0 && (stack.Peek() is AndOperatorToken or OrOperatorToken or NotOperatorToken))
+                        // NOTE: Changed this check from several specific checks to 'is OperatorToken' 
+                        if (stack.Count > 0 && (stack.Peek() is OperatorToken))
                         {
                             output.Enqueue(stack.Pop());
                         }
@@ -79,12 +84,24 @@ class Parser
 
                 case AndOperatorToken:
                 case OrOperatorToken:
+                case XorOperatorToken:
+                case NandOperatorToken:
+                case NorOperatorToken:
+                case XnorOperatorToken:
                     if (stack.Count < 2) throw new Exception($"2 parameters needed for operator ${token}");
 
                     if (token is AndOperatorToken)
                         stack.Push(new AndOperatorNode(stack.Pop(), stack.Pop()));
                     else if (token is OrOperatorToken)
                         stack.Push(new OrOperatorNode(stack.Pop(), stack.Pop()));
+                    else if (token is NorOperatorToken)
+                        stack.Push(new NorOperatorNode(stack.Pop(), stack.Pop()));
+                    else if (token is NandOperatorToken)
+                        stack.Push(new NandOperatorNode(stack.Pop(), stack.Pop()));
+                    else if (token is XorOperatorToken)
+                        stack.Push(new XorOperatorNode(stack.Pop(), stack.Pop()));
+                    else if (token is XnorOperatorToken)
+                        stack.Push(new XnorOperatorNode(stack.Pop(), stack.Pop()));
                     break;
 
                 case NotOperatorToken:

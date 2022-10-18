@@ -32,6 +32,10 @@ class Tokeniser
                 "AND" or "." or "&" => new AndOperatorToken(),
                 "OR" or "+" or "|" => new OrOperatorToken(),
                 "NOT" or "!" or "¬" => new NotOperatorToken(),
+                "XOR" => new XorOperatorToken(),
+                "NAND" => new NandOperatorToken(),
+                "NOR" => new NorOperatorToken(),
+                "XNOR" => new XnorOperatorToken(),
                 _ => new VariableToken(token)
             };
         }

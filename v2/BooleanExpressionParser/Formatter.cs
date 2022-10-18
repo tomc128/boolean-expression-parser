@@ -10,7 +10,9 @@ class Formatter
 
         foreach (var token in tokens)
         {
-            sb.Append(token.ToString());
+            string s = token.ToString();
+            if (s.Length > 1) s = $"[{s}]";
+            sb.Append(s);
         }
 
         return sb.ToString();
@@ -52,7 +54,7 @@ class Formatter
 
         sb.Append("┗━");
         sb.AppendJoin(null, variableLine);
-        sb.AppendLine($"━┻{resultLine}┛");
+        sb.Append($"━┻{resultLine}┛");
 
         return sb.ToString();
     }

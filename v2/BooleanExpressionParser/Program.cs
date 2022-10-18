@@ -17,6 +17,11 @@ internal class Program
 
             var parser = new Parser();
             var prefixTokens = parser.ParseTokens(infixTokens);
+
+            Console.WriteLine(expression);
+            Console.WriteLine("Infix: " + Formatter.FormatTokens(infixTokens));
+            Console.WriteLine("Prefix: " + Formatter.FormatTokens(prefixTokens));
+
             var ast = parser.GrowAst(prefixTokens);
 
             var evaluator = new Evaluator(ast);

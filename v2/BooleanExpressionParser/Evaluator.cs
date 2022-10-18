@@ -43,6 +43,11 @@ class Evaluator
 
             if (node is AndOperatorNode) return left && right;
             if (node is OrOperatorNode) return left || right;
+            if (node is XorOperatorNode) return left ^ right;
+            if (node is NandOperatorNode) return !(left && right);
+            if (node is NorOperatorNode) return !(left || right);
+            if (node is XnorOperatorNode) return !(left ^ right);
+
         }
         else
         {
