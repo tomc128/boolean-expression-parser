@@ -36,11 +36,13 @@ class Evaluator
         else if (node is OperatorNode op)
         {
             var left = Evaluate(op.Left, values);
+
+            if (node is NotOperatorNode) return !left;
+            
             var right = Evaluate(op.Right!, values);
 
             if (node is AndOperatorNode) return left && right;
             if (node is OrOperatorNode) return left || right;
-            if (node is NotOperatorNode) return !left;
         }
         else
         {

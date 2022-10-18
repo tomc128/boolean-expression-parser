@@ -55,7 +55,7 @@ class Formatter
 
         foreach (var token in tokens)
         {
-            sb.Append(token.Value);
+            sb.Append(token.ToString());
             sb.Append(" ");
         }
 

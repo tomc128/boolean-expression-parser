@@ -20,6 +20,10 @@ internal class Program
             var prefixTokens = parser.ParseTokens(infixTokens);
             var ast = parser.GrowAst(prefixTokens);
 
+            Console.WriteLine($"Expression: {expression}");
+            Console.WriteLine($"Infix: {Formatter.FormatAstAsInfix(ast.Root)}");
+            Console.WriteLine($"Prefix: {Formatter.FormatPrefixTokens(prefixTokens)}");
+
             var evaluator = new Evaluator(ast);
             var table = evaluator.EvaluateAll();
 

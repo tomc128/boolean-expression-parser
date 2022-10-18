@@ -9,7 +9,10 @@
             "program": "${workspaceFolder}/bin/Debug/net6.0/BooleanExpressionParser.dll",
             "args": [
                 "A.B",
-                "A+B"
+                "A+B",
+                "!(A+B+C)",
+                "T+F+F.F",
+                "!A+B"
             ],
             "cwd": "${workspaceFolder}",
             "console": "integratedTerminal", // enables input (instead of internalConsole)

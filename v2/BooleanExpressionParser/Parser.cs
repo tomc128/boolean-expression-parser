@@ -13,35 +13,36 @@ class Parser
 
         foreach (var token in tokens)
         {
-            switch (token.Type)
+            switch (token)
             {
-                case Token.TokenType.IDENTIFIER:
+                case VariableToken:
                     output.Enqueue(token);
                     break;
 
-                case Token.TokenType.BINARY_OPERATOR:
-                case Token.TokenType.UNARY_OPERATOR:
-                    while ((stack.Count > 0 && stack.Peek().Type != Token.TokenType.OPEN_PAREN) /* && CHECK PRECEDENCE HERE */)
+                case AndOperatorToken:
+                case OrOperatorToken:
+                case NotOperatorToken:
+                    while ((stack.Count > 0 && stack.Peek() is OperatorToken && stack.Peek() is not OpenParenToken) && ((stack.Peek() as OperatorToken)!.Precedence >= (token as OperatorToken)!.Precedence))
                     {
                         output.Enqueue(stack.Pop());
                     }
                     stack.Push(token);
                     break;
 
-                case Token.TokenType.OPEN_PAREN:
+                case OpenParenToken:
                     stack.Push(token);
                     break;
 
-                case Token.TokenType.CLOSE_PAREN:
-                    while (stack.Count > 0 && stack.Peek().Type != Token.TokenType.OPEN_PAREN)
+                case CloseParenToken:
+                    while (stack.Count > 0 && stack.Peek() is not OpenParenToken)
                     {
                         output.Enqueue(stack.Pop());
                     }
 
-                    if (stack.Peek().Type == Token.TokenType.OPEN_PAREN)
+                    if (stack.Peek() is OpenParenToken)
                     {
                         stack.Pop();
-                        if (stack.Count > 0 && (stack.Peek().Type == Token.TokenType.UNARY_OPERATOR || stack.Peek().Type == Token.TokenType.BINARY_OPERATOR))
+                        if (stack.Count > 0 && (stack.Peek() is AndOperatorToken or OrOperatorToken or NotOperatorToken))
                         {
                             output.Enqueue(stack.Pop());
                         }
@@ -52,7 +53,7 @@ class Parser
 
         while (stack.Count > 0)
         {
-            if (stack.Peek().Type == Token.TokenType.OPEN_PAREN)
+            if (stack.Peek() is OpenParenToken)
             {
                 throw new Exception("OPEN_PAREN on operator stack.");
             }
@@ -69,27 +70,26 @@ class Parser
 
         foreach (var token in tokens)
         {
-            switch (token.Type)
+            switch (token)
             {
-                case Token.TokenType.IDENTIFIER:
-                    stack.Push(new VariableNode(token.Value));
-                    if (!variables.Contains(token.Value)) variables.Add(token.Value);
+                case VariableToken var:
+                    stack.Push(new VariableNode(var.Name));
+                    if (!variables.Contains(var.Name)) variables.Add(var.Name);
                     break;
 
-                case Token.TokenType.BINARY_OPERATOR:
-                    if (stack.Count < 2) throw new Exception($"2 parameters needed for operator ${token.Type}");
+                case AndOperatorToken:
+                case OrOperatorToken:
+                    if (stack.Count < 2) throw new Exception($"2 parameters needed for operator ${token}");
 
-                    if (token.Value == "AND")
+                    if (token is AndOperatorToken)
                         stack.Push(new AndOperatorNode(stack.Pop(), stack.Pop()));
-                    else
+                    else if (token is OrOperatorToken)
                         stack.Push(new OrOperatorNode(stack.Pop(), stack.Pop()));
                     break;
 
-                case Token.TokenType.UNARY_OPERATOR:
-                    if (stack.Count < 1) throw new Exception($"1 parameter needed for operator ${token.Type}");
-
-                    if (token.Value == "NOT")
-                        stack.Push(new NotOperatorNode(stack.Pop()));
+                case NotOperatorToken:
+                    if (stack.Count < 1) throw new Exception($"1 parameter needed for operator ${token}");
+                    stack.Push(new NotOperatorNode(stack.Pop()));
                     break;
             }
         }
