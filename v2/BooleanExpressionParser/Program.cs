@@ -11,27 +11,64 @@ internal class Program
         var tokens = new List<Token>();
         var reader = new StringReader(expression);
 
+        Console.WriteLine("Tokenising...");
         Token token;
         do
         {
             token = new Token(reader);
             tokens.Add(token);
         } while (token.Type != Token.TokenType.EXPR_END);
+        tokens.ForEach(x => Console.Write($"{x.Value} "));
+        Console.WriteLine();
 
+        Console.WriteLine("Converting to prefix (PN)...");
         var polishTokens = ToPolish(tokens);
+        polishTokens.ForEach(x => Console.Write($"{x.Value} "));
+        Console.WriteLine();
 
-        polishTokens.ForEach(x => System.Console.WriteLine($"{x.Type} : {x.Value}"));
-
+        Console.WriteLine("Building AST...");
         var root = BuildAST(polishTokens);
 
+        Console.WriteLine("Stringifying AST...");
         var text = StringifyAST(root);
+        Console.WriteLine($"Output expression: {text}");
 
+        Console.WriteLine("Retrieving variables...");
+        var variables = GetVariables(root);
+        Console.WriteLine($"Found {variables.Count} variables: {string.Join(", ", variables)}");
 
-        System.Console.WriteLine("======");
+        Console.WriteLine();
+        Console.WriteLine($"Input: {expression}");
+        Console.WriteLine($"Parsed: {text}");
+        Console.WriteLine();
 
-        System.Console.WriteLine($"Input expression: {expression}");
+        int numCombinations = (int)Math.Pow(2, variables.Count);
 
-        System.Console.WriteLine($"Output expression: {text}");
+        var tableRows = new List<bool[]>();
+
+        Console.WriteLine($"Evaluating {numCombinations} combinations...");
+        for (int i = 0; i < numCombinations; i++)
+        {
+            var binary = Convert.ToString(i, 2).PadLeft(variables.Count, '0');
+            var values = new Dictionary<String, bool>();
+
+            for (int j = 0; j < variables.Count; j++)
+            {
+                values.Add(variables[j], binary[j] == '1');
+            }
+
+            var result = Evaluate(root, values);
+            Console.WriteLine($"Combination {i} ({binary}) = {result}");
+
+            tableRows.Add(values.Values.Concat(new bool[] { result }).ToArray());
+        }
+
+        Console.WriteLine();
+        Console.WriteLine("Truth table:");
+
+        var table = FormatTruthTable(variables, tableRows);
+
+        Console.WriteLine(table);
     }
 
     static List<Token> ToPolish(List<Token> normalTokens)
@@ -117,7 +154,7 @@ internal class Program
             }
         }
 
-        System.Console.WriteLine($"{stack.Count} tokens remaining in stack!");
+        if (stack.Count != 1) throw new Exception("Expression invalid - stack not empty");
 
         return stack.Pop();
     }
@@ -145,7 +182,7 @@ internal class Program
                     break;
 
                 case NotOperatorNode op:
-                    builder.Append($"(NOT ");
+                    builder.Append($"NOT (");
                     Visit(op.Left);
                     builder.Append(")");
                     break;
@@ -167,4 +204,85 @@ internal class Program
         return builder.ToString();
     }
 
+    static List<String> GetVariables(Node root)
+    {
+        var variables = new List<String>();
+
+        void Visit(Node node)
+        {
+            switch (node)
+            {
+                case VariableNode var:
+                    variables.Add(var.Name);
+                    break;
+                case AndOperatorNode op:
+                    Visit(op.Left);
+                    Visit(op.Right!);
+                    break;
+                case OrOperatorNode op:
+                    Visit(op.Left);
+                    Visit(op.Right!);
+                    break;
+                case NotOperatorNode op:
+                    Visit(op.Left);
+                    break;
+            }
+        }
+
+        Visit(root);
+
+        variables.Sort();
+        return variables;
+    }
+
+    static bool Evaluate(Node root, Dictionary<String, bool> variables)
+    {
+        void Visit(Node node)
+        {
+            switch (node)
+            {
+                case VariableNode var:
+                    var.Value = variables[var.Name];
+                    break;
+                case AndOperatorNode op:
+                    Visit(op.Left);
+                    Visit(op.Right!);
+                    break;
+                case OrOperatorNode op:
+                    Visit(op.Left);
+                    Visit(op.Right!);
+                    break;
+                case NotOperatorNode op:
+                    Visit(op.Left);
+                    break;
+            }
+        }
+
+        Visit(root);
+
+        var result = root.Evaluate();
+
+        return result;
+    }
+
+
+    static String FormatTruthTable(List<String> variables, List<bool[]> table)
+    {
+        String Repeat(char c, int count) => new String(c, count);
+
+        var builder = new StringBuilder();
+
+        builder.AppendLine($"┏{Repeat('━', variables.Count * 3 + 2)}┳{Repeat('━', 8)}┓");
+        builder.AppendLine($"┃  {String.Join("  ", variables)}  ┃ Result ┃");
+        builder.AppendLine($"┣{Repeat('━', variables.Count * 3 + 2)}╋{Repeat('━', 8)}┫");
+
+        foreach (var row in table)
+        {
+            builder.AppendLine($"┃  {String.Join("  ", row[0..^1].Select(b => b ? "1" : "0"))}  ┃   {(row[^1] ? "1" : "0")}    ┃");
+        }
+
+        builder.AppendLine($"┗{Repeat('━', variables.Count * 3 + 2)}┻{Repeat('━', 8)}┛");
+
+        return builder.ToString();
+    }
 }

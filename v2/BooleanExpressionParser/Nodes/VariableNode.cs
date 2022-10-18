@@ -5,10 +5,8 @@ public class VariableNode : Node
         Name = name;
     }
 
-    public String Name {get;set;}
+    public String Name { get; set; }
+    public bool Value { get; set; }
 
-    public override bool Evaluate()
-    {
-        throw new NotImplementedException();
-    }
+    public override bool Evaluate() => Value;
 }

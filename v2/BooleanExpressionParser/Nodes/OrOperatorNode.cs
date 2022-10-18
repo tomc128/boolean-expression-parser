@@ -4,6 +4,6 @@ public class OrOperatorNode : OperatorNode
 
     public override bool Evaluate()
     {
-        return Left.Evaluate() || Right.Evaluate();
+        return Left.Evaluate() || Right!.Evaluate();
     }
 }
