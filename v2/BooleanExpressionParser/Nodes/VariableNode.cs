@@ -1,4 +1,4 @@
-public class VariableNode : Node
+class VariableNode : Node
 {
     public VariableNode(String name)
     {

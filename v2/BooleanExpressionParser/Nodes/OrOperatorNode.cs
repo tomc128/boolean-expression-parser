@@ -1,4 +1,4 @@
-public class OrOperatorNode : OperatorNode
+class OrOperatorNode : OperatorNode
 {
     public OrOperatorNode(Node left, Node right) : base(left, right) { }
 }

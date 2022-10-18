@@ -1,4 +1,4 @@
-public abstract class Node
+abstract class Node
 {
     
 }
