@@ -1,6 +1,6 @@
 public class NotOperatorNode : OperatorNode
 {
-    public NotOperatorNode(Node left, Node right) : base(left, right) { }
+    public NotOperatorNode(Node left) : base(left, null) { }
 
     public override bool Evaluate()
     {

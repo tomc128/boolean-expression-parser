@@ -1,6 +1,5 @@
 public class Token
 {
-
     static Dictionary<char, (TokenType, string)> tokenDict = new()
     {
         { '(', (TokenType.OPEN_PAREN, "(") },
