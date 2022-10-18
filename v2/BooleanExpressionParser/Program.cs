@@ -17,16 +17,12 @@ internal class Program
 
             var parser = new Parser();
             var prefixTokens = parser.ParseTokens(infixTokens);
-
-            Console.WriteLine($"Infix: {Formatter.FormatInfixTokens(infixTokens)}");
-            Console.WriteLine($"Prefix: {Formatter.FormatPrefixTokens(prefixTokens)}");
-
             var ast = parser.GrowAst(prefixTokens);
 
             var evaluator = new Evaluator(ast);
             var table = evaluator.EvaluateAll();
 
-            var tableString = Formatter.FormatTruthTable(ast, table);
+            var tableString = Formatter.FormatTruthTable(ast, table, label: Formatter.FormatTokens(infixTokens));
             Console.WriteLine(tableString);
         }
     }

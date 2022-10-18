@@ -4,7 +4,7 @@ namespace BooleanExpressionParser;
 
 class Formatter
 {
-    public static string FormatInfixTokens(IEnumerable<Token> tokens)
+    public static string FormatTokens(IEnumerable<Token> tokens)
     {
         var sb = new StringBuilder();
 
@@ -16,36 +16,24 @@ class Formatter
         return sb.ToString();
     }
 
-    public static string FormatPrefixTokens(IEnumerable<Token> tokens)
-    {
-        var sb = new StringBuilder();
-
-        foreach (var token in tokens)
-        {
-            sb.Append(token.ToString());
-            sb.Append(" ");
-        }
-
-        return sb.ToString();
-    }
-
-    public static string FormatTruthTable(Ast ast, List<bool[]> table)
+    public static string FormatTruthTable(Ast ast, List<bool[]> table, string label="Result")
     {
         var sb = new StringBuilder();
 
         var variableLine = ast.Variables.Select(v => Repeat('━', v.Length + 2)).ToList();
+        var resultLine = Repeat('━', label.Length + 4);
 
         sb.Append("┏━");
-        variableLine.ForEach(s => sb.Append(s));
-        sb.AppendLine("━┳━━━━━━━━┓");
+        sb.AppendJoin(null, variableLine);
+        sb.AppendLine($"━┳{resultLine}┓");
 
         sb.Append("┃ ");
         ast.Variables.ForEach(v => sb.Append($" {v} "));
-        sb.AppendLine(" ┃ Result ┃");
+        sb.AppendLine($" ┃  {label}  ┃");
 
         sb.Append("┣━");
-        variableLine.ForEach(s => sb.Append(s));
-        sb.AppendLine("━╋━━━━━━━━┫");
+        sb.AppendJoin(null, variableLine);
+        sb.AppendLine($"━╋{resultLine}┫");
 
         foreach (bool[] row in table)
         {
@@ -57,12 +45,14 @@ class Formatter
                 sb.Append($"{pad1}{(row[i] ? '1' : '0')}{pad2} ");
             }
 
-            sb.AppendLine($" ┃   {(row[^1] ? '1' : '0')}    ┃");
+            string pad3 = Repeat(' ', (int)Math.Ceiling(label.Length / 2.0f));
+            string pad4 = Repeat(' ', (int)Math.Floor(label.Length / 2.0f));
+            sb.AppendLine($" ┃ {pad3}{(row[^1] ? '1' : '0')}{pad4}  ┃");
         }
 
         sb.Append("┗━");
-        variableLine.ForEach(s => sb.Append(s));
-        sb.AppendLine("━┻━━━━━━━━┛");
+        sb.AppendJoin(null, variableLine);
+        sb.AppendLine($"━┻{resultLine}┛");
 
         return sb.ToString();
     }
