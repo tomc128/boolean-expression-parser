@@ -68,10 +68,12 @@ The final truth table is ordered by the order in which the variables are encount
    - The parsed tokens are then converted into an AST (Abstract Syntax Tree). This is so that the expression can be evaluated and easily traversed.
    - An AST consists of several nodes, each with children nodes (0, 1, or 2 depending on its type). Each node represents an operator or variable.
    - Our parsed list, [`A`, `B`, `NOT`, `AND`], would be converted into the following AST:
-     - `AND`
-       - `A`
-       - `NOT`
-         - `B`
+      ```
+      AND
+      ├── A
+      └── NOT
+          └── B
+      ```
 
 
 ### 4. Evaluation
