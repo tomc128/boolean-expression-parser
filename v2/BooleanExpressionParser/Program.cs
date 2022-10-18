@@ -2,14 +2,65 @@
 
 internal class Program
 {
-    static void Main(string[] args)
-    {
-        string expression = @"(!(A & B) | C) & D";
 
-        expression = expression.Replace(" ", "");
+    public enum Command
+    {
+        Evaluate,
+        Compare
+    }
+
+    /// <summary>
+    /// Tom's boolean expression parser and evaluator.
+    /// </summary>
+    /// <param name="subCommand">The command to perform</param>
+    /// <param name="expression">The expression to evaluate</param>
+    /// <param name="secondExpression">The expression to compare to (if using Compare sub-command)</param>
+
+    static void Main(Command subCommand = Command.Evaluate, string? expression, string? secondExpression)
+    {
+        Console.WriteLine("Tom's boolean expression parser and evaluator.");
+        Console.WriteLine($"Command: {subCommand}");
+        Console.WriteLine($"Expression: {expression ?? "Not specified"}");
+        Console.WriteLine($"Second Expression: {secondExpression ?? "Not specified"}");
+
+        switch (subCommand)
+        {
+            case Command.Evaluate:
+                if (expression is null)
+                {
+                    Console.WriteLine("Enter expression:");
+                    Console.Write("> ");
+                    expression = Console.ReadLine();
+                }
+
+                break;
+            case Command.Compare:
+                if (expression is null)
+                {
+                    Console.WriteLine("Enter expression:");
+                    Console.Write("> ");
+                    expression = Console.ReadLine();
+                }
+                if (secondExpression is null)
+                {
+                    Console.WriteLine("Enter second expression:");
+                    Console.Write("> ");
+                    secondExpression = Console.ReadLine();
+                }
+
+                break;
+        }
+
+
+
+    }
+
+    static ParsedExpression RunExpression(string expression)
+    {
+        var strippedExpression = expression.Replace(" ", "");
 
         var tokens = new List<Token>();
-        var reader = new StringReader(expression);
+        var reader = new StringReader(strippedExpression);
 
         Console.WriteLine("Tokenising...");
         Token token;
@@ -58,17 +109,28 @@ internal class Program
             }
 
             var result = Evaluate(root, values);
-            Console.WriteLine($"Combination {i} ({binary}) = {result}");
+            Console.WriteLine($"Combination {i} ({binary}) = {(result ? "1" : "0")}");
 
-            tableRows.Add(values.Values.Concat(new bool[] { result }).ToArray());
+            tableRows.Add(values.Values.Append(result).ToArray());
         }
 
         Console.WriteLine();
-        Console.WriteLine("Truth table:");
+        Console.WriteLine($"Truth table for '{expression}':");
 
         var table = FormatTruthTable(variables, tableRows);
 
-        Console.WriteLine(table);
+        return new ParsedExpression
+        {
+            Expression = expression,
+            StrippedExpression = strippedExpression,
+            Tokens = tokens,
+            PolishTokens = polishTokens,
+            RootNode = root,
+            ASTString = text,
+            Table = tableRows,
+            TableString = table
+        };
+
     }
 
     static List<Token> ToPolish(List<Token> normalTokens)
