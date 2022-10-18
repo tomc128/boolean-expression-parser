@@ -1,3 +1,5 @@
+using System.Text;
+
 namespace BooleanExpressionParser;
 
 internal class Program
@@ -5,6 +7,8 @@ internal class Program
 
     static void Main(params string[] args)
     {
+        Console.OutputEncoding = Encoding.UTF8;
+
         if (args.Length == 0)
         {
             args = QueryExpressions();

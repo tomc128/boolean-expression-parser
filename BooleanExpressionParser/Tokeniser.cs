@@ -4,7 +4,7 @@ namespace BooleanExpressionParser;
 
 class Tokeniser
 {
-    private readonly Regex regex = new Regex(@"(\(|\)|\w+|[.&+!¬])\s*");
+    private readonly Regex regex = new Regex(@"([([{<]|[)\]}>]|\w+|[.&+!¬|])\s*");
     private readonly string input;
 
     public Tokeniser(string input)
@@ -20,15 +20,15 @@ class Tokeniser
         {
             var match = regex.Match(input, i);
             if (!match.Success) throw new Exception("Invalid token (no match found) at position " + i);
-            if (match.Index != i) throw new Exception("Invalid token (match found at wrong position) at position " + i);
+            if (match.Index != i) throw new Exception($"Invalid token (match found at wrong position) at position {i}, match '{match.Value}' found at position {match.Index}");
 
             string token = match.Groups[1].Value;
             i += match.Length;
 
             yield return token switch
             {
-                "(" => new OpenParenToken(),
-                ")" => new CloseParenToken(),
+                "(" or "[" or "{" or "<" => new OpenParenToken(),
+                ")" or "]" or "}" or ">" => new CloseParenToken(),
                 "AND" or "." or "&" => new AndOperatorToken(),
                 "OR" or "+" or "|" => new OrOperatorToken(),
                 "NOT" or "!" or "¬" => new NotOperatorToken(),

@@ -10,8 +10,8 @@ class Formatter
 
         foreach (var token in tokens)
         {
-            string s = token.ToString();
-            if (s.Length > 1) s = $"[{s}]";
+            string s = token.ToString()!;
+            if (token is not VariableToken && s.Length > 1) s = $"[{s}]";
             sb.Append(s);
         }
 
