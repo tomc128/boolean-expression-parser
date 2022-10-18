@@ -62,20 +62,20 @@ class Formatter
         return sb.ToString();
     }
 
-    public static string FormatTruthTable(List<string> variables, List<bool[]> table)
+    public static string FormatTruthTable(Ast ast, List<bool[]> table)
     {
         var sb = new StringBuilder();
 
-        sb.AppendLine($"┏{Repeat('━', variables.Count * 3 + 2)}┳{Repeat('━', 8)}┓");
-        sb.AppendLine($"┃  {String.Join("  ", variables)}  ┃ Result ┃");
-        sb.AppendLine($"┣{Repeat('━', variables.Count * 3 + 2)}╋{Repeat('━', 8)}┫");
+        sb.AppendLine($"┏{Repeat('━', ast.Variables.Count * 3 + 2)}┳{Repeat('━', 8)}┓");
+        sb.AppendLine($"┃  {String.Join("  ", ast.Variables)}  ┃ Result ┃");
+        sb.AppendLine($"┣{Repeat('━', ast.Variables.Count * 3 + 2)}╋{Repeat('━', 8)}┫");
 
         foreach (var row in table)
         {
             sb.AppendLine($"┃  {String.Join("  ", row[0..^1].Select(b => b ? "1" : "0"))}  ┃   {(row[^1] ? "1" : "0")}    ┃");
         }
 
-        sb.AppendLine($"┗{Repeat('━', variables.Count * 3 + 2)}┻{Repeat('━', 8)}┛");
+        sb.AppendLine($"┗{Repeat('━', ast.Variables.Count * 3 + 2)}┻{Repeat('━', 8)}┛");
 
         return sb.ToString();
     }

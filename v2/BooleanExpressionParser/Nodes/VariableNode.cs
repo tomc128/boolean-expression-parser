@@ -7,6 +7,4 @@ public class VariableNode : Node
 
     public String Name { get; set; }
     public bool Value { get; set; }
-
-    public override bool Evaluate() => Value;
 }

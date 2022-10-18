@@ -3,15 +3,14 @@ namespace BooleanExpressionParser;
 internal class Program
 {
 
-    static void Main(params string[] expressions)
+    static void Main(params string[] args)
     {
-        if (expressions.Length == 0)
+        if (args.Length == 0)
         {
-            // expressions = QueryExpressions();
-            expressions = new[] { "A.B" };
+            args = QueryExpressions();
         }
 
-        foreach (var expression in expressions)
+        foreach (var expression in args)
         {
             var trimmed = expression.Replace(" ", "");
             var tokeniser = new Tokeniser(trimmed);
@@ -21,8 +20,11 @@ internal class Program
             var prefixTokens = parser.ParseTokens(infixTokens);
             var ast = parser.GrowAst(prefixTokens);
 
-            Console.WriteLine($"INFIX: {Formatter.FormatAstAsInfix(ast.Root)}");
-            Console.WriteLine($"PREFIX: {Formatter.FormatPrefixTokens(prefixTokens)}");
+            var evaluator = new Evaluator(ast);
+            var table = evaluator.EvaluateAll();
+
+            var tableString = Formatter.FormatTruthTable(ast, table);
+            Console.WriteLine(tableString);
         }
     }
 
