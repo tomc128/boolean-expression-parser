@@ -14,6 +14,8 @@ internal class Program
             args = QueryExpressions();
         }
 
+        var tables = new List<string>();
+
         foreach (var expression in args)
         {
             var tokeniser = new Tokeniser(expression);
@@ -22,17 +24,22 @@ internal class Program
             var parser = new Parser();
             var prefixTokens = parser.ParseTokens(infixTokens);
 
-            Console.WriteLine(expression);
-            Console.WriteLine("Infix: " + Formatter.FormatTokens(infixTokens));
-            Console.WriteLine("Prefix: " + Formatter.FormatTokens(prefixTokens));
-
             var ast = parser.GrowAst(prefixTokens);
 
             var evaluator = new Evaluator(ast);
             var table = evaluator.EvaluateAll();
 
             var tableString = Formatter.FormatTruthTable(ast, table, label: Formatter.FormatTokens(infixTokens));
-            Console.WriteLine(tableString);
+            tables.Add(tableString);
+        }
+
+        if (tables.Count > 1)
+        {
+            Console.WriteLine(Formatter.JoinTruthTables(tables.ToArray()));
+        }
+        else
+        {
+            Console.WriteLine(tables[0]);
         }
     }
 

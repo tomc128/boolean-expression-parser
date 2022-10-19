@@ -18,7 +18,7 @@ class Formatter
         return sb.ToString();
     }
 
-    public static string FormatTruthTable(Ast ast, List<bool[]> table, string label="Result")
+    public static string FormatTruthTable(Ast ast, List<bool[]> table, string label = "Result")
     {
         var sb = new StringBuilder();
 
@@ -60,4 +60,19 @@ class Formatter
     }
 
     static string Repeat(char c, int count) => new string(c, count);
+
+    public static String JoinTruthTables(params string[] tables)
+    {
+        var sb = new StringBuilder();
+
+        var lines = tables.Select(t => t.Split(Environment.NewLine)).ToList();
+
+        for (int i = 0; i < lines.Max(l => l.Length); i++)
+        {
+            sb.AppendJoin(" ", lines.Select(l => i < l.Length ? l[i] : Repeat(' ', l[0].Length)));
+            sb.AppendLine();
+        }
+
+        return sb.ToString();
+    }
 }
