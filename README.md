@@ -7,6 +7,7 @@ A simple boolean expression parser written in C#. It parses boolean expressions 
 
 - [Running](#running)
 - [Building](#building)
+- [Display](#display)
 - [Usage](#usage)
 - [Expressions](#expressions)
 - [Variables](#variables)
@@ -27,6 +28,25 @@ After downloading a release from the Releases section to the right, you can run 
 ## Building
 
 To build the project, you'll need .NET 6 installed. You can then build the project with `dotnet build` or run it with `dotnet run`. Alternatively, you can open the project in Visual Studio or Visual Studio Code, the latter of which has config in the repo.
+
+
+## Display
+
+The application displays an intuitive truth table output for each boolean expression:
+```
+┏━━━━━━━━┳━━━━━━━┓ ┏━━━━━━━━━━━┳━━━━━━━━━━━━━━━━┓
+┃  A  B  ┃  A.B  ┃ ┃  A  B  C  ┃  (!A.B)[XOR]C  ┃
+┣━━━━━━━━╋━━━━━━━┫ ┣━━━━━━━━━━━╋━━━━━━━━━━━━━━━━┫
+┃  0  0  ┃   0   ┃ ┃  0  0  0  ┃       0        ┃
+┃  0  1  ┃   0   ┃ ┃  0  0  1  ┃       1        ┃
+┃  1  0  ┃   0   ┃ ┃  0  1  0  ┃       1        ┃
+┃  1  1  ┃   1   ┃ ┃  0  1  1  ┃       0        ┃
+┗━━━━━━━━┻━━━━━━━┛ ┃  1  0  0  ┃       0        ┃
+                   ┃  1  0  1  ┃       1        ┃
+                   ┃  1  1  0  ┃       0        ┃
+                   ┃  1  1  1  ┃       1        ┃
+                   ┗━━━━━━━━━━━┻━━━━━━━━━━━━━━━━┛
+```
 
 
 ## Usage
