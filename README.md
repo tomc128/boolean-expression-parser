@@ -5,6 +5,7 @@ A simple boolean expression parser written in C#. It parses boolean expressions 
 
 ## Contents <!-- omit in toc -->
 
+- [Running](#running)
 - [Building](#building)
 - [Usage](#usage)
 - [Expressions](#expressions)
@@ -16,6 +17,11 @@ A simple boolean expression parser written in C#. It parses boolean expressions 
   - [4. Evaluation](#4-evaluation)
 - [Example expressions](#example-expressions)
 - [Found an issue?](#found-an-issue)
+
+
+## Running
+
+After downloading a release from the Releases section to the right, you can run the program on either Windows or Linux by running `BooleanExpressionParser.exe` or `BooleanExpressionParser` in the terminal respectively. Note, you'll need .NET 6 installed on your machine to run the program.
 
 
 ## Building
