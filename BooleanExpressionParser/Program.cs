@@ -33,7 +33,9 @@ internal class Program
                 var binary = Convert.ToString(i, 2).PadLeft(ast.Variables.Count, '0');
                 var values = binary.Select(c => c == '1').ToArray();
 
-                var result = ast.Root.Evaluate(ast.Variables.Zip(values, (name, value) => (name, value)).ToDictionary(x => x.name, x => x.value));
+                var variables = ast.Variables.Zip(values, (k, v) => new { k, v }).ToDictionary(x => x.k, x => x.v);
+
+                var result = ast.Root.Evaluate(variables);
                 table.Add(values.Append(result).ToArray());
             }
 
