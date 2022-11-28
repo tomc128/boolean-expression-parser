@@ -26,11 +26,18 @@ internal class Program
 
             var ast = parser.GrowAst(prefixTokens);
 
-            var evaluator = new Evaluator(ast);
-            var table = evaluator.EvaluateAll();
+            int numCombinations = (int)Math.Pow(2, ast.Variables.Count);
+            var table = new List<bool[]>();
+            for (int i = 0; i < numCombinations; i++)
+            {
+                var binary = Convert.ToString(i, 2).PadLeft(ast.Variables.Count, '0');
+                var values = binary.Select(c => c == '1').ToArray();
 
-            var tableString = Formatter.FormatTruthTable(ast, table, label: Formatter.FormatTokens(infixTokens));
-            tables.Add(tableString);
+                var result = ast.Root.Evaluate(ast.Variables.Zip(values, (name, value) => (name, value)).ToDictionary(x => x.name, x => x.value));
+                table.Add(values.Append(result).ToArray());
+            }
+
+            tables.Add(Formatter.FormatTruthTable(ast, table, label: expression));
         }
 
         if (tables.Count > 1)
