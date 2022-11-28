@@ -19,14 +19,19 @@ class Evaluator
             var binary = Convert.ToString(i, 2).PadLeft(Ast.Variables.Count, '0');
             var values = binary.Select(c => c == '1').ToArray();
 
-            var result = Evaluate(Ast.Root, values);
+            var result = EvaluateNode(Ast.Root, values);
             table.Add(values.Append(result).ToArray());
         }
 
         return table;
     }
 
-    private bool Evaluate(Node node, bool[] values)
+    public bool Evaluate(bool[] values)
+    {
+        return EvaluateNode(Ast.Root, values);
+    }
+
+    private bool EvaluateNode(Node node, bool[] values)
     {
         if (node is VariableNode var)
         {
@@ -35,11 +40,11 @@ class Evaluator
         }
         else if (node is OperatorNode op)
         {
-            var left = Evaluate(op.Left, values);
+            var left = EvaluateNode(op.Left, values);
 
             if (node is NotOperatorNode) return !left;
-            
-            var right = Evaluate(op.Right!, values);
+
+            var right = EvaluateNode(op.Right!, values);
 
             if (node is AndOperatorNode) return left && right;
             if (node is OrOperatorNode) return left || right;
