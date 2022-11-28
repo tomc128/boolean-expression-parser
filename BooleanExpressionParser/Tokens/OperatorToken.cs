@@ -5,7 +5,5 @@ abstract class OperatorToken : Token
         Precedence = precedence;
     }
 
-    public int Precedence { get; protected set; }
-
-    
+    public int Precedence { get; protected set; }    
 }
