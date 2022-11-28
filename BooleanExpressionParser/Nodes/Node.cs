@@ -1,4 +1,4 @@
 abstract class Node
 {
-    public abstract bool Evaluate();
+    public abstract bool Evaluate(Dictionary<string, bool> variables);
 }

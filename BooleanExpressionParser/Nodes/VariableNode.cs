@@ -6,7 +6,7 @@ class VariableNode : Node
     }
 
     public String Name { get; set; }
-    public bool Value { get; set; }
+    // public bool Value { get; set; }
 
-    public override bool Evaluate() => Value;
+    public override bool Evaluate(Dictionary<string, bool> variables) => variables[Name];
 }
