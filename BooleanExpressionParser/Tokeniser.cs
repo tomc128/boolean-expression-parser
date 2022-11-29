@@ -36,7 +36,7 @@ class Tokeniser
                 "NAND" => new NandOperatorToken(),
                 "NOR" => new NorOperatorToken(),
                 "XNOR" => new XnorOperatorToken(),
-                "=>" or "IMPLIES" => new ImplicationOperatorToken(),
+                "IMPLIES" or "=>" => new ImplicationOperatorToken(),
                 _ => new VariableToken(token)
             };
         }
