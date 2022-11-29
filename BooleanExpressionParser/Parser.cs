@@ -2,6 +2,19 @@ namespace BooleanExpressionParser;
 
 class Parser
 {
+    static readonly Dictionary<Type, Type> TokenNodeMap = new Dictionary<Type, Type>
+    {
+        { AndOperatorToken, AndOperatorNode },
+        { OrOperatorToken, OrOperatorNode },
+        { NotOperatorToken, NotOperatorNode },
+        { NandOperatorToken, NandOperatorNode },
+        { NorOperatorToken, NorOperatorNode },
+        { XorOperatorToken, XorOperatorNode },
+        { XnorOperatorToken, XnorOperatorNode },
+        { ImplicationOperatorToken, ImplicationOperatorNode },
+
+    };
+
     public Parser()
     {
     }
@@ -19,15 +32,8 @@ class Parser
                     output.Enqueue(token);
                     break;
 
-                case AndOperatorToken:
-                case OrOperatorToken:
-                case NotOperatorToken:
-                case XorOperatorToken:
-                case NandOperatorToken:
-                case NorOperatorToken:
-                case XnorOperatorToken:
-                case ImplicationOperatorToken:
-                    while ((stack.Count > 0 && stack.Peek() is OperatorToken && stack.Peek() is not OpenParenToken) && ((stack.Peek() as OperatorToken)!.Precedence >= (token as OperatorToken)!.Precedence))
+                case OperatorToken op:
+                    while ((stack.Count > 0 && stack.Peek() is OperatorToken && stack.Peek() is not OpenParenToken) && ((stack.Peek() as OperatorToken)!.Precedence >= op!.Precedence))
                     {
                         output.Enqueue(stack.Pop());
                     }
@@ -83,34 +89,28 @@ class Parser
                     if (!variables.Contains(var.Name)) variables.Add(var.Name);
                     break;
 
-                case AndOperatorToken:
-                case OrOperatorToken:
-                case XorOperatorToken:
-                case NandOperatorToken:
-                case NorOperatorToken:
-                case XnorOperatorToken:
-                case ImplicationOperatorToken:
-                    if (stack.Count < 2) throw new Exception($"2 parameters needed for operator ${token}");
-
-                    if (token is AndOperatorToken)
-                        stack.Push(new AndOperatorNode(stack.Pop(), stack.Pop()));
-                    else if (token is OrOperatorToken)
-                        stack.Push(new OrOperatorNode(stack.Pop(), stack.Pop()));
-                    else if (token is NorOperatorToken)
-                        stack.Push(new NorOperatorNode(stack.Pop(), stack.Pop()));
-                    else if (token is NandOperatorToken)
-                        stack.Push(new NandOperatorNode(stack.Pop(), stack.Pop()));
-                    else if (token is XorOperatorToken)
-                        stack.Push(new XorOperatorNode(stack.Pop(), stack.Pop()));
-                    else if (token is XnorOperatorToken)
-                        stack.Push(new XnorOperatorNode(stack.Pop(), stack.Pop()));
-                    else if (token is ImplicationOperatorToken)
-                        stack.Push(new ImplicationOperatorNode(stack.Pop(), stack.Pop()));
-                    break;
-
                 case NotOperatorToken:
                     if (stack.Count < 1) throw new Exception($"1 parameter needed for operator ${token}");
                     stack.Push(new NotOperatorNode(stack.Pop()));
+                    break;
+
+                // All other operators
+                case OperatorToken:
+                    if (stack.Count < 2) throw new Exception($"2 parameters needed for operator ${token}");
+
+                    OperatorNode node = token switch
+                    {
+                        AndOperatorToken => new AndOperatorNode(stack.Pop(), stack.Pop()),
+                        OrOperatorToken => new OrOperatorNode(stack.Pop(), stack.Pop()),
+                        NorOperatorToken => new NorOperatorNode(stack.Pop(), stack.Pop()),
+                        NandOperatorToken => new NandOperatorNode(stack.Pop(), stack.Pop()),
+                        XorOperatorToken => new XorOperatorNode(stack.Pop(), stack.Pop()),
+                        XnorOperatorToken => new XnorOperatorNode(stack.Pop(), stack.Pop()),
+                        ImplicationOperatorToken => new ImplicationOperatorNode(stack.Pop(), stack.Pop()),
+                        _ => throw new Exception($"Unknown operator ${token}")
+                    };
+
+                    stack.Push(node);
                     break;
             }
         }
