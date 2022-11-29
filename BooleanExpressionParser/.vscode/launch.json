@@ -6,7 +6,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/bin/Debug/net6.0/BooleanExpressionParser.dll",
+            "program": "${workspaceFolder}/bin/Debug/net7.0/BooleanExpressionParser.dll",
             "args": [
                 // "A.B",
                 // "A+B",
