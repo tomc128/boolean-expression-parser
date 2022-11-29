@@ -4,8 +4,8 @@ namespace BooleanExpressionParser;
 
 class Formatter
 {
-    public string True { get; set; } = "1";
-    public string False { get; set; } = "0";
+    public char True { get; set; } = '1';
+    public char False { get; set; } = '0';
 
     public string FormatTokens(IEnumerable<Token> tokens)
     {

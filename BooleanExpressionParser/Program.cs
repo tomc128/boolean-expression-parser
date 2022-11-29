@@ -26,10 +26,7 @@ internal class Program
         }
 
         var tables = new List<string>();
-        var formatter = new Formatter {
-            True = "T",
-            False = "F"
-        };
+        var formatter = new Formatter();
 
         foreach (var expression in expressions)
         {
