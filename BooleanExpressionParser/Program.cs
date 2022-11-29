@@ -1,3 +1,4 @@
+using System.CommandLine;
 using System.Text;
 using Spectre.Console;
 
@@ -6,7 +7,32 @@ namespace BooleanExpressionParser;
 internal class Program
 {
 
-    static void Main(params string[] args)
+    private static void Main(string[] args)
+    {
+        var rootCommand = new RootCommand();
+
+        var trueOption = new Option<string>(new[] { "--true", "-t" }, () => "1", description: "Character to use for true values in the truth table.");
+        var falseOption = new Option<string>(new[] { "--false", "-f" }, () => "0", description: "Character to use for false values in the truth table.");
+        var expressionsArgument = new Argument<string[]>("expression(s)", description: "The boolean expression(s) to evaluate.");
+
+        var tableCommand = new Command("table", description: "Prints the truth table of a boolean expression(s).")
+        {
+            trueOption,
+            falseOption,
+            expressionsArgument
+        };
+
+        tableCommand.SetHandler(Run, trueOption, falseOption, expressionsArgument);
+
+        rootCommand.AddCommand(tableCommand);
+
+        rootCommand.Invoke(args);
+
+
+    }
+
+
+    private static void Run(string @true, string @false, string[] args)
     {
         Console.OutputEncoding = Encoding.UTF8;
 
@@ -26,7 +52,11 @@ internal class Program
         }
 
         var tables = new List<string>();
-        var formatter = new Formatter();
+        var formatter = new Formatter
+        {
+            True = @true[0],
+            False = @false[0]
+        };
 
         foreach (var expression in expressions)
         {
@@ -57,7 +87,6 @@ internal class Program
         if (tables.Count > 1)
         {
             var output = formatter.JoinTruthTables(tables.ToArray());
-            Console.WriteLine(output);
             AnsiConsole.Markup(output);
 
         }
