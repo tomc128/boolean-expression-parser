@@ -33,20 +33,8 @@ To build the project, you'll need .NET 7 installed. You can then build the proje
 ## Display
 
 The application displays an intuitive, coloured truth table output for each boolean expression:
-```
-┏━━━━━━━━┳━━━━━━━┓ ┏━━━━━━━━━━━┳━━━━━━━━━━━━━━━━┓
-┃  A  B  ┃  A.B  ┃ ┃  A  B  C  ┃  (!A.B)[XOR]C  ┃
-┣━━━━━━━━╋━━━━━━━┫ ┣━━━━━━━━━━━╋━━━━━━━━━━━━━━━━┫
-┃  0  0  ┃   0   ┃ ┃  0  0  0  ┃       0        ┃
-┃  0  1  ┃   0   ┃ ┃  0  0  1  ┃       1        ┃
-┃  1  0  ┃   0   ┃ ┃  0  1  0  ┃       1        ┃
-┃  1  1  ┃   1   ┃ ┃  0  1  1  ┃       0        ┃
-┗━━━━━━━━┻━━━━━━━┛ ┃  1  0  0  ┃       0        ┃
-                   ┃  1  0  1  ┃       1        ┃
-                   ┃  1  1  0  ┃       0        ┃
-                   ┃  1  1  1  ┃       1        ┃
-                   ┗━━━━━━━━━━━┻━━━━━━━━━━━━━━━━┛
-```
+
+![Sample screenshot](./docs/sample-screenshot.png)
 
 
 ## Usage
@@ -76,7 +64,7 @@ Shown below is a list of supported operators. Each operator's aliases are listed
   - NAND
   - NOR
   - XNOR
-  - IMPLICATION ('=>')
+  - IMPLIES (`=>`)
 
 Of course, you can also use brackets to group expressions. Every type of bracket can be used, which may help distinguish groupings: `()` `[]` `{}`
 
