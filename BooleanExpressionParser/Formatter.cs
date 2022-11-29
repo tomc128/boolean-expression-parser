@@ -4,7 +4,10 @@ namespace BooleanExpressionParser;
 
 class Formatter
 {
-    public static string FormatTokens(IEnumerable<Token> tokens)
+    public string True { get; set; } = "1";
+    public string False { get; set; } = "0";
+
+    public string FormatTokens(IEnumerable<Token> tokens)
     {
         var sb = new StringBuilder();
 
@@ -18,7 +21,7 @@ class Formatter
         return sb.ToString();
     }
 
-    public static string FormatTruthTable(Ast ast, List<bool[]> table, string label = "Result")
+    public string FormatTruthTable(Ast ast, List<bool[]> table, string label = "Result")
     {
         var sb = new StringBuilder();
 
@@ -44,12 +47,12 @@ class Formatter
             {
                 string pad1 = Repeat(' ', (int)Math.Ceiling(ast.Variables[i].Length / 2.0f));
                 string pad2 = Repeat(' ', (int)Math.Floor(ast.Variables[i].Length / 2.0f));
-                sb.Append($"{pad1}{(row[i] ? '1' : '0')}{pad2} ");
+                sb.Append($"{pad1}{(row[i] ? $"[green]{True}[/]" : $"[red]{False}[/]")}{pad2} ");
             }
 
             string pad3 = Repeat(' ', (int)Math.Ceiling(label.Length / 2.0f));
             string pad4 = Repeat(' ', (int)Math.Floor(label.Length / 2.0f));
-            sb.AppendLine($" ┃ {pad3}{(row[^1] ? '1' : '0')}{pad4}  ┃");
+            sb.AppendLine($" ┃ {pad3}{(row[^1] ? $"[green]{True}[/]" : $"[red]{False}[/]")}{pad4}  ┃");
         }
 
         sb.Append("┗━");
@@ -61,7 +64,7 @@ class Formatter
 
     static string Repeat(char c, int count) => new string(c, count);
 
-    public static String JoinTruthTables(params string[] tables)
+    public String JoinTruthTables(params string[] tables)
     {
         var sb = new StringBuilder();
 

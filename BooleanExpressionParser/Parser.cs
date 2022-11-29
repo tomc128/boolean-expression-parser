@@ -20,7 +20,8 @@ class Parser
                     break;
 
                 case OperatorToken op:
-                    while ((stack.Count > 0 && stack.Peek() is OperatorToken && stack.Peek() is not OpenParenToken) && ((stack.Peek() as OperatorToken)!.Precedence >= op!.Precedence))
+                    while ((stack.Count > 0 && stack.Peek() is OperatorToken && stack.Peek() is not OpenParenToken) &&
+                           ((stack.Peek() as OperatorToken)!.Precedence >= op!.Precedence))
                     {
                         output.Enqueue(stack.Pop());
                     }
@@ -62,7 +63,7 @@ class Parser
         return output;
     }
 
-    public Ast GrowAst(IEnumerable<Token> tokens)
+    public Ast GrowAst(IEnumerable<Token> tokens, string[] variableOrder)
     {
         var stack = new Stack<Node>();
         var variables = new List<string>();
@@ -108,6 +109,8 @@ class Parser
         }
 
         var root = stack.Pop();
+
+        variables = variables.OrderBy(v => Array.IndexOf(variableOrder, v)).ToList();
 
         return new Ast(root, variables);
     }

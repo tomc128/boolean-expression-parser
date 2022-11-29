@@ -1,4 +1,5 @@
 using System.Text;
+using Spectre.Console;
 
 namespace BooleanExpressionParser;
 
@@ -25,6 +26,10 @@ internal class Program
         }
 
         var tables = new List<string>();
+        var formatter = new Formatter {
+            True = "T",
+            False = "F"
+        };
 
         foreach (var expression in expressions)
         {
@@ -49,16 +54,18 @@ internal class Program
                 table.Add(values.Append(result).ToArray());
             }
 
-            tables.Add(Formatter.FormatTruthTable(ast, table, label: expression.Expression));
+            tables.Add(formatter.FormatTruthTable(ast, table, label: expression.Expression));
         }
 
         if (tables.Count > 1)
         {
-            Console.WriteLine(Formatter.JoinTruthTables(tables.ToArray()));
+            Console.WriteLine(formatter.JoinTruthTables(tables.ToArray()));
+
         }
         else
         {
-            Console.WriteLine(tables[0]);
+            // Console.WriteLine(tables[0]);
+            AnsiConsole.Markup(tables[0]);
         }
     }
 
