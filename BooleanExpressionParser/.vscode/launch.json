@@ -8,6 +8,7 @@
             "preLaunchTask": "build",
             "program": "${workspaceFolder}/bin/Debug/net7.0/BooleanExpressionParser.dll",
             "args": [
+                "table"
                 // "A.B",
                 // "A+B",
                 // "!(A+B+C)",

@@ -15,7 +15,7 @@ internal class Program
         var falseOption = new Option<string>(new[] { "--false", "-f" }, () => "0", description: "Character to use for false values in the truth table.");
         var expressionsArgument = new Argument<string[]>("expression(s)", description: "The boolean expression(s) to evaluate.");
 
-        var tableCommand = new Command("table", description: "Prints the truth table of a boolean expression(s).")
+        var tableCommand = new Command("table", description: "Prints the truth table of a boolean expression(s). If none are provided, the user will be prompted to enter them.")
         {
             trueOption,
             falseOption,
@@ -27,8 +27,6 @@ internal class Program
         rootCommand.AddCommand(tableCommand);
 
         rootCommand.Invoke(args);
-
-
     }
 
 
