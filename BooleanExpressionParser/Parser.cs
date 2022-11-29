@@ -2,19 +2,6 @@ namespace BooleanExpressionParser;
 
 class Parser
 {
-    static readonly Dictionary<Type, Type> TokenNodeMap = new Dictionary<Type, Type>
-    {
-        { AndOperatorToken, AndOperatorNode },
-        { OrOperatorToken, OrOperatorNode },
-        { NotOperatorToken, NotOperatorNode },
-        { NandOperatorToken, NandOperatorNode },
-        { NorOperatorToken, NorOperatorNode },
-        { XorOperatorToken, XorOperatorNode },
-        { XnorOperatorToken, XnorOperatorNode },
-        { ImplicationOperatorToken, ImplicationOperatorNode },
-
-    };
-
     public Parser()
     {
     }
