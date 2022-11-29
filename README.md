@@ -22,17 +22,17 @@ A simple boolean expression parser written in C#. It parses boolean expressions 
 
 ## Running
 
-After downloading a release from the Releases section to the right, you can run the program on either Windows or Linux by running `BooleanExpressionParser.exe` or `BooleanExpressionParser` in the terminal respectively. Note, you'll need .NET 6 installed on your machine to run the program.
+After downloading a release from the Releases section to the right, you can run the program on either Windows or Linux by running `BooleanExpressionParser.exe` or `BooleanExpressionParser` in the terminal respectively. Note, you'll need .NET 7 installed on your machine to run the program.
 
 
 ## Building
 
-To build the project, you'll need .NET 6 installed. You can then build the project with `dotnet build` or run it with `dotnet run`. Alternatively, you can open the project in Visual Studio or Visual Studio Code, the latter of which has config in the repo.
+To build the project, you'll need .NET 7 installed. You can then build the project with `dotnet build` or run it with `dotnet run`. Alternatively, you can open the project in Visual Studio or Visual Studio Code, the latter of which has config in the repo.
 
 
 ## Display
 
-The application displays an intuitive truth table output for each boolean expression:
+The application displays an intuitive, coloured truth table output for each boolean expression:
 ```
 ┏━━━━━━━━┳━━━━━━━┓ ┏━━━━━━━━━━━┳━━━━━━━━━━━━━━━━┓
 ┃  A  B  ┃  A.B  ┃ ┃  A  B  C  ┃  (!A.B)[XOR]C  ┃
@@ -51,7 +51,18 @@ The application displays an intuitive truth table output for each boolean expres
 
 ## Usage
 
-Run `./BooleanExpressionParser <args>` from the command line. `args` is a list of boolean expressions to parse. If no arguments are given, the program will prompt you to enter them into the console.
+### Truth table generation
+`./BooleanExpressionParser table <expression(s)>`
+#### Arguments:
+  - <expression(s)> The boolean expression(s) to evaluate
+#### Options:
+  - -t, --true <true> Character to use for true values in the truth table. [default: 1]
+  - -f, --false <false> Character to use for false values in the truth table. [default: 0]
+
+More usage options to be implemented in the future.
+
+For help, run `./BooleanExpressionParser --help`. For help with a specific command, run `./BooleanExpressionParser <command> --help`.
+
 
 
 ## Expressions
@@ -65,15 +76,21 @@ Shown below is a list of supported operators. Each operator's aliases are listed
   - NAND
   - NOR
   - XNOR
+  - IMPLICATION ('=>')
 
-Of course, you can also use brackets to group expressions. Every type of bracket can be used, which may help distinguish groupings: `()` `[]` `{}` `<>`
+Of course, you can also use brackets to group expressions. Every type of bracket can be used, which may help distinguish groupings: `()` `[]` `{}`
 
 
 ## Variables
 
 Any characters in an expression which arent operators or brackets are considered variables. The parser will automatically generate a truth table for each variable. Variables can be several characters long, which allows for numbered variables (`A1`, `A_2`, etc.).
 
-The final truth table is ordered by the order in which the variables are encountered in the expression. For example, the expression `X | A & B` will have the variables ordered `X`, `A`, `B` in the truth table.
+To provide an order in which the variables should be printed, give a comma separated list of variables after your expression, separating these parts with a semicolon (`;`). If this isn't given, the truth table is generated in the order the variables are found in the expression.
+
+For example:
+- The expression "D0.!S + D1.S" would generate a truth table ordered D0, D1, S.
+- The expression "D0.!S + D1.S;S,D0,D1" would generate a truth table ordered S, D0, D1.
+
 
 
 ## How it works
@@ -116,7 +133,7 @@ The final truth table is ordered by the order in which the variables are encount
   - A simple OR gate
 - `!S . D_0 + D_1 . S`
   - A 2-1 multiplexer
-- `(!S0 AND ¬S1 . D0) | (NOT<S0> . S1 . D1) + (S0 . {¬S1 & D2}) OR [S0 . S1 AND D3]`
+- `(!S0 AND ¬S1 . D0) | (NOT{S0} . S1 . D1) + (S0 . {¬S1 & D2}) OR [S0 . S1 AND D3]`
   - A 4-1 multiplexer, using several aliases for operators and brackets
 
 
