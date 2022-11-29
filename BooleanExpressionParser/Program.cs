@@ -9,22 +9,32 @@ internal class Program
     {
         Console.OutputEncoding = Encoding.UTF8;
 
+        List<ExpressionWrapper> expressions;
+
         if (args.Length == 0)
         {
-            args = QueryExpressions();
+            expressions = QueryExpressions();
+        }
+        else
+        {
+            expressions = new List<ExpressionWrapper>();
+            foreach (string arg in args)
+            {
+                expressions.Add(new ExpressionWrapper(arg));
+            }
         }
 
         var tables = new List<string>();
 
-        foreach (var expression in args)
+        foreach (var expression in expressions)
         {
-            var tokeniser = new Tokeniser(expression);
+            var tokeniser = new Tokeniser(expression.Expression);
             var infixTokens = tokeniser.Tokenise();
 
             var parser = new Parser();
             var prefixTokens = parser.ParseTokens(infixTokens);
 
-            var ast = parser.GrowAst(prefixTokens);
+            var ast = parser.GrowAst(prefixTokens, expression.VariableOrder);
 
             int numCombinations = (int)Math.Pow(2, ast.Variables.Count);
             var table = new List<bool[]>();
@@ -39,7 +49,7 @@ internal class Program
                 table.Add(values.Append(result).ToArray());
             }
 
-            tables.Add(Formatter.FormatTruthTable(ast, table, label: expression));
+            tables.Add(Formatter.FormatTruthTable(ast, table, label: expression.Expression));
         }
 
         if (tables.Count > 1)
@@ -53,9 +63,9 @@ internal class Program
     }
 
 
-    static string[] QueryExpressions()
+    static List<ExpressionWrapper> QueryExpressions()
     {
-        var expressions = new List<string>();
+        var expressions = new List<ExpressionWrapper>();
 
         Console.WriteLine("Enter expressions, one per line. Press enter on a blank line to continue.");
 
@@ -66,9 +76,12 @@ internal class Program
 
             if (string.IsNullOrWhiteSpace(line)) break;
 
-            expressions.Add(line);
+            var expression = new ExpressionWrapper(line);
+            expressions.Add(expression);
         }
 
-        return expressions.ToArray();
+        return expressions;
     }
+
+
 }
