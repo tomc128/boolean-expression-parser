@@ -1,4 +1,5 @@
 using System.Text;
+using Spectre.Console;
 
 namespace BooleanExpressionParser;
 
@@ -34,7 +35,7 @@ class Formatter
 
         sb.Append("┃ ");
         ast.Variables.ForEach(v => sb.Append($" {v} "));
-        sb.AppendLine($" ┃  {label}  ┃");
+        sb.AppendLine($" ┃  {label.EscapeMarkup()}  ┃");
 
         sb.Append("┣━");
         sb.AppendJoin(null, variableLine);

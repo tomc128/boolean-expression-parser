@@ -56,12 +56,13 @@ internal class Program
 
         if (tables.Count > 1)
         {
-            Console.WriteLine(formatter.JoinTruthTables(tables.ToArray()));
+            var output = formatter.JoinTruthTables(tables.ToArray());
+            Console.WriteLine(output);
+            AnsiConsole.Markup(output);
 
         }
         else
         {
-            // Console.WriteLine(tables[0]);
             AnsiConsole.Markup(tables[0]);
         }
     }
