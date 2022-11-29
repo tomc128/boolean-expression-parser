@@ -4,7 +4,7 @@ namespace BooleanExpressionParser;
 
 class Tokeniser
 {
-    private readonly Regex regex = new Regex(@"([([{<]|[)\]}>]|\w+|[.&+!¬|])\s*");
+    private readonly Regex regex = new Regex(@"([([{]|[)\]}]|[\w]+|[.&+!¬|]|=>)\s*");
     private readonly string input;
 
     public Tokeniser(string input)
@@ -27,8 +27,8 @@ class Tokeniser
 
             yield return token switch
             {
-                "(" or "[" or "{" or "<" => new OpenParenToken(),
-                ")" or "]" or "}" or ">" => new CloseParenToken(),
+                "(" or "[" or "{" => new OpenParenToken(),
+                ")" or "]" or "}"  => new CloseParenToken(),
                 "AND" or "." or "&" => new AndOperatorToken(),
                 "OR" or "+" or "|" => new OrOperatorToken(),
                 "NOT" or "!" or "¬" => new NotOperatorToken(),
@@ -36,6 +36,7 @@ class Tokeniser
                 "NAND" => new NandOperatorToken(),
                 "NOR" => new NorOperatorToken(),
                 "XNOR" => new XnorOperatorToken(),
+                "=>" or "IMPLIES" => new ImplicationOperatorToken(),
                 _ => new VariableToken(token)
             };
         }

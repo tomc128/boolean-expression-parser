@@ -26,6 +26,7 @@ class Parser
                 case NandOperatorToken:
                 case NorOperatorToken:
                 case XnorOperatorToken:
+                case ImplicationOperatorToken:
                     while ((stack.Count > 0 && stack.Peek() is OperatorToken && stack.Peek() is not OpenParenToken) && ((stack.Peek() as OperatorToken)!.Precedence >= (token as OperatorToken)!.Precedence))
                     {
                         output.Enqueue(stack.Pop());
@@ -88,6 +89,7 @@ class Parser
                 case NandOperatorToken:
                 case NorOperatorToken:
                 case XnorOperatorToken:
+                case ImplicationOperatorToken:
                     if (stack.Count < 2) throw new Exception($"2 parameters needed for operator ${token}");
 
                     if (token is AndOperatorToken)
@@ -102,6 +104,8 @@ class Parser
                         stack.Push(new XorOperatorNode(stack.Pop(), stack.Pop()));
                     else if (token is XnorOperatorToken)
                         stack.Push(new XnorOperatorNode(stack.Pop(), stack.Pop()));
+                    else if (token is ImplicationOperatorToken)
+                        stack.Push(new ImplicationOperatorNode(stack.Pop(), stack.Pop()));
                     break;
 
                 case NotOperatorToken:

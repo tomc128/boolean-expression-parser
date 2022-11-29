@@ -1,5 +1,5 @@
 class XnorOperatorToken : OperatorToken
 {
-    public XnorOperatorToken() : base(3) { }
+    public XnorOperatorToken() : base(1) { }
     public override string ToString() => "XNOR";
 }
