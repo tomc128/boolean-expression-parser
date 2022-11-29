@@ -9,6 +9,7 @@ A simple boolean expression parser written in C#. It parses boolean expressions 
 - [Building](#building)
 - [Display](#display)
 - [Usage](#usage)
+  - [Truth table generation](#truth-table-generation)
 - [Expressions](#expressions)
 - [Variables](#variables)
 - [How it works](#how-it-works)
@@ -41,9 +42,9 @@ The application displays an intuitive, coloured truth table output for each bool
 
 ### Truth table generation
 `./BooleanExpressionParser table <expression(s)>`
-#### Arguments:
+#### Arguments: <!-- omit in toc -->
   - <expression(s)> The boolean expression(s) to evaluate
-#### Options:
+#### Options: <!-- omit in toc -->
   - -t, --true <true> Character to use for true values in the truth table. [default: 1]
   - -f, --false <false> Character to use for false values in the truth table. [default: 0]
 
