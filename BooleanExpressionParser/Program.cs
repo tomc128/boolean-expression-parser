@@ -100,6 +100,7 @@ internal class Program
         var expressions = new List<ExpressionWrapper>();
 
         Console.WriteLine("Enter expressions, one per line. Press enter on a blank line to continue.");
+        Console.WriteLine("Expressions should be of the form: '<expression>(;<variable-order>)', where variable-order is optional.");
 
         while (true)
         {
