@@ -52,8 +52,9 @@ internal class Program
         var tables = new List<string>();
         var formatter = new Formatter
         {
-            True = @true[0],
-            False = @false[0]
+            // True = @true[0],
+            True = @true,
+            False = @false
         };
 
         foreach (var expression in expressions)
