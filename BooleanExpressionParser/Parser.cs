@@ -6,6 +6,11 @@ class Parser
     {
     }
 
+    /// <summary>
+    /// Converts a list of tokens in infix notation to a list of tokens in prefix notation.
+    /// </summary>
+    /// <param name="tokens">The tokens to parse.</param>
+    /// <returns>The root node of the expression tree.</returns>
     public IEnumerable<Token> ParseTokens(IEnumerable<Token> tokens)
     {
         var output = new Queue<Token>();
