@@ -92,7 +92,7 @@ class Formatter
         sb.AppendLine(horizontalLineBottom);
 
 
-        return sb.ToString();
+        return sb.ToString().Trim();
     }
 
 
