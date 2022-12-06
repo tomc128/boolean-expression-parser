@@ -1,12 +1,31 @@
+using System.Globalization;
 using System.Text;
 using Spectre.Console;
 
 namespace BooleanExpressionParser;
 
+enum ColourMode
+{
+    None,
+    Foreground,
+    Background
+}
+
+
 class Formatter
 {
-    public char True { get; set; } = '1';
-    public char False { get; set; } = '0';
+    private static int FinalPadding = 2;
+
+    private string @true = "1";
+    private string @false = "0";
+    public string True { get => @true; set => @true = value.Trim(); }
+    public string False { get => @false; set => @false = value.Trim(); }
+
+    public ColourMode ColourMode { get; set; } = ColourMode.Foreground;
+
+    public string TrueColour { get; set; } = "green";
+    public string FalseColour { get; set; } = "red";
+
 
     public string FormatTokens(IEnumerable<Token> tokens)
     {
@@ -26,44 +45,88 @@ class Formatter
     {
         var sb = new StringBuilder();
 
-        var variableLine = ast.Variables.Select(v => Repeat('━', v.Length + 2)).ToList();
-        var resultLine = Repeat('━', label.Length + 4);
+        var maxTrueFalse = Math.Max(True.Length, False.Length);
+        var maxResultLength = Math.Max(label.Length, maxTrueFalse);
 
-        sb.Append("┏━");
-        sb.AppendJoin(null, variableLine);
-        sb.AppendLine($"━┳{resultLine}┓");
+        var horizontalLineTop = "";
+        var variableRow = "";
+        var horizontalLineMiddle = "";
+        var tableRows = new List<string>();
+        var horizontalLineBottom = "";
 
-        sb.Append("┃ ");
-        ast.Variables.ForEach(v => sb.Append($" {v} "));
-        sb.AppendLine($" ┃  {label.EscapeMarkup()}  ┃");
+        for (int i = 0; i < ast.Variables.Count; i++)
+        {
+            string? item = ast.Variables[i];
+            var width = Math.Max(item.Length, maxTrueFalse) + FinalPadding;
+            horizontalLineTop += Repeat('━', width);
+            horizontalLineMiddle += Repeat('━', width);
+            horizontalLineBottom += Repeat('━', width);
+            variableRow += $"[bold]{PadBoth(item, width)}[/]";
+        }
 
-        sb.Append("┣━");
-        sb.AppendJoin(null, variableLine);
-        sb.AppendLine($"━╋{resultLine}┫");
+        var resultLine = Repeat('━', maxResultLength + FinalPadding);
+
+        horizontalLineTop = $"┏{horizontalLineTop}┳{resultLine}┓";
+        horizontalLineMiddle = $"┣{horizontalLineMiddle}╋{resultLine}┫";
+        horizontalLineBottom = $"┗{horizontalLineBottom}┻{resultLine}┛";
+        variableRow = $"┃{variableRow}┃[bold]{PadBoth(label, maxResultLength + FinalPadding)}[/]┃";
 
         foreach (bool[] row in table)
         {
-            sb.Append("┃ ");
+            var tableRow = "";
             for (int i = 0; i < row.Length - 1; i++)
             {
-                string pad1 = Repeat(' ', (int)Math.Ceiling(ast.Variables[i].Length / 2.0f));
-                string pad2 = Repeat(' ', (int)Math.Floor(ast.Variables[i].Length / 2.0f));
-                sb.Append($"{pad1}{(row[i] ? $"[green]{True}[/]" : $"[red]{False}[/]")}{pad2} ");
+                var width = Math.Max(ast.Variables[i].Length, maxTrueFalse) + FinalPadding;
+                tableRow += $"{PadDisplayAndColour(row[i], width)}";
             }
-
-            string pad3 = Repeat(' ', (int)Math.Ceiling(label.Length / 2.0f));
-            string pad4 = Repeat(' ', (int)Math.Floor(label.Length / 2.0f));
-            sb.AppendLine($" ┃ {pad3}{(row[^1] ? $"[green]{True}[/]" : $"[red]{False}[/]")}{pad4}  ┃");
+            tableRows.Add($"┃{tableRow}┃{PadDisplayAndColour(row[^1], maxResultLength + FinalPadding)}┃");
         }
 
-        sb.Append("┗━");
-        sb.AppendJoin(null, variableLine);
-        sb.Append($"━┻{resultLine}┛");
+        sb.AppendLine(horizontalLineTop);
+        sb.AppendLine(variableRow);
+        sb.AppendLine(horizontalLineMiddle);
+        foreach (var row in tableRows)
+        {
+            sb.AppendLine(row);
+        }
+        sb.AppendLine(horizontalLineBottom);
+
 
         return sb.ToString();
     }
 
+
+    string TrueStyle => ColourMode switch
+    {
+        ColourMode.Foreground => $"[{TrueColour}]",
+        ColourMode.Background => $"[on {TrueColour}]",
+        _ => "[default]"
+    };
+
+    string FalseStyle => ColourMode switch
+    {
+        ColourMode.Foreground => $"[{FalseColour}]",
+        ColourMode.Background => $"[on {FalseColour}]",
+        _ => "[default]"
+    };
+
+
+    string Colour(bool value, string text) => value ? $"{TrueStyle}{text}[/]" : $"{FalseStyle}{text}[/]";
+
+    string PadDisplayAndColour(bool value, int totalLength) => Colour(value, PadBoth(value ? True : False, totalLength));
+
+
+
     static string Repeat(char c, int count) => new string(c, count);
+
+    static string PadBoth(string source, int totalLength, char paddingChar = ' ')
+    {
+        int spaces = totalLength - source.Length;
+        int padLeft = spaces / 2 + source.Length;
+        return source.PadLeft(padLeft, paddingChar).PadRight(totalLength, paddingChar);
+
+    }
+
 
     public String JoinTruthTables(params string[] tables)
     {

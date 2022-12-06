@@ -47,6 +47,9 @@ The application displays an intuitive, coloured truth table output for each bool
 #### Options: <!-- omit in toc -->
   - -t, --true <true> Character to use for true values in the truth table. [default: 1]
   - -f, --false <false> Character to use for false values in the truth table. [default: 0]
+  - -c, --colour-mode, --color-mode <colour-mode> Colour mode to use for the truth table. [default: Foreground]  [possible values: [Ff]oreground, [Bb]ackground, [Nn]one]
+  - --true-colour, --true-color <true-colour> Colour to use for true values in the truth table. [default: green]  [possible values: 16 ANSI colours, hex string, rgb string]
+  - --false-colour, --false-color <false-colour> Colour to use for false values in the truth table. [default: red]  [possible values: 16 ANSI colours, hex string, rgb string]
 
 More usage options to be implemented in the future.
 
