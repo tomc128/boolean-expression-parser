@@ -61,7 +61,7 @@ class Formatter
             variableRow += $"[bold]{PadBoth(item, width)}[/]";
         }
 
-        var resultLine = Repeat('━', label.Length + FinalPadding);
+        var resultLine = Repeat('━', maxResultLength + FinalPadding);
 
         horizontalLineTop = $"┏{horizontalLineTop}┳{resultLine}┓";
         horizontalLineMiddle = $"┣{horizontalLineMiddle}╋{resultLine}┫";
@@ -76,7 +76,7 @@ class Formatter
                 var width = Math.Max(ast.Variables[i].Length, maxTrueFalse) + FinalPadding;
                 tableRow += $"{PadDisplayAndColour(row[i], width)}";
             }
-            tableRows.Add($"┃{tableRow}┃{PadDisplayAndColour(row[^1], label.Length + FinalPadding)}┃");
+            tableRows.Add($"┃{tableRow}┃{PadDisplayAndColour(row[^1], maxResultLength + FinalPadding)}┃");
         }
 
         sb.AppendLine(horizontalLineTop);
