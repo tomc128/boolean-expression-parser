@@ -13,16 +13,18 @@ internal class Program
 
         var trueOption = new Option<string>(new[] { "--true", "-t" }, () => "1", description: "Character to use for true values in the truth table.");
         var falseOption = new Option<string>(new[] { "--false", "-f" }, () => "0", description: "Character to use for false values in the truth table.");
+        var colourModeOption = new Option<ColourMode>(new[] { "--colour-mode", "-c" }, () => ColourMode.Foreground, description: "Whether to colour the truth table with foreground or background colours (or no colours).");
         var expressionsArgument = new Argument<string[]>("expression(s)", description: "The boolean expression(s) to evaluate.");
 
         var tableCommand = new Command("table", description: "Prints the truth table of a boolean expression(s). If none are provided, the user will be prompted to enter them.")
         {
             trueOption,
             falseOption,
+            colourModeOption,
             expressionsArgument
         };
 
-        tableCommand.SetHandler(Run, trueOption, falseOption, expressionsArgument);
+        tableCommand.SetHandler(Run, trueOption, falseOption, colourModeOption, expressionsArgument);
 
         rootCommand.AddCommand(tableCommand);
 
@@ -30,7 +32,7 @@ internal class Program
     }
 
 
-    private static void Run(string @true, string @false, string[] args)
+    private static void Run(string @true, string @false, ColourMode colourMode, string[] args)
     {
         Console.OutputEncoding = Encoding.UTF8;
 
@@ -52,9 +54,9 @@ internal class Program
         var tables = new List<string>();
         var formatter = new Formatter
         {
-            // True = @true[0],
             True = @true,
-            False = @false
+            False = @false,
+            ColourMode = colourMode
         };
 
         foreach (var expression in expressions)
