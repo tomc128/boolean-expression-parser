@@ -23,6 +23,9 @@ class Formatter
 
     public ColourMode ColourMode { get; set; } = ColourMode.Foreground;
 
+    public string TrueColour { get; set; } = "green";
+    public string FalseColour { get; set; } = "red";
+
 
     public string FormatTokens(IEnumerable<Token> tokens)
     {
@@ -95,15 +98,15 @@ class Formatter
 
     string TrueStyle => ColourMode switch
     {
-        ColourMode.Foreground => "[green]",
-        ColourMode.Background => "[on green]",
+        ColourMode.Foreground => $"[{TrueColour}]",
+        ColourMode.Background => $"[on {TrueColour}]",
         _ => "[default]"
     };
 
     string FalseStyle => ColourMode switch
     {
-        ColourMode.Foreground => "[red]",
-        ColourMode.Background => "[on red]",
+        ColourMode.Foreground => $"[{FalseColour}]",
+        ColourMode.Background => $"[on {FalseColour}]",
         _ => "[default]"
     };
 
