@@ -18,6 +18,7 @@ A simple boolean expression parser written in C#. It parses boolean expressions 
   - [3. AST](#3-ast)
   - [4. Evaluation](#4-evaluation)
 - [Example expressions](#example-expressions)
+- [Roadmap](#roadmap)
 - [Found an issue?](#found-an-issue)
 
 
@@ -127,6 +128,19 @@ For example:
   - A 2-1 multiplexer
 - `(!S0 AND ¬S1 . D0) | (NOT{S0} . S1 . D1) + (S0 . {¬S1 & D2}) OR [S0 . S1 AND D3]`
   - A 4-1 multiplexer, using several aliases for operators and brackets
+
+
+## Roadmap
+
+- [x] Implement basic expression parsing and evaluation
+- [x] Implement truth table generation and display
+- [x] Improve console output with colours
+- [x] Implement command line arguments
+- [ ] Add raw output options
+  - [ ] Output prefix notation
+  - [ ] Output specific output for given variables
+  - [ ] Output machine-readable truth table
+- [ ] Create UI for the application, either web-based or desktop-based
 
 
 ## Found an issue?
