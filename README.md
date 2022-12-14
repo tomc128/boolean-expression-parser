@@ -48,7 +48,7 @@ The application displays an intuitive, coloured truth table output for each bool
 
 
 ## Truth table generation
-Converts a boolean expression(s) to prefix notation. If none are provided, the user will be prompted to enter them.
+Prints the truth table of a boolean expression(s). If none are provided, the user will be prompted to enter them.
 
 ### Usage: <!-- omit in toc -->
   `./BooleanExpressionParser table [<expression(s)>...] [options]`
@@ -63,7 +63,7 @@ Converts a boolean expression(s) to prefix notation. If none are provided, the u
 
 
 ## Notation conversion
-Converts a boolean expression(s) to prefix notation. If none are provided, the user will be prompted to enter them.
+Converts a boolean expression(s) to postfix notation. If none are provided, the user will be prompted to enter them.
 
 ### Usage: <!-- omit in toc -->
 `./BooleanExpressionParser convert [<expression(s)>...] [options]`
@@ -114,8 +114,8 @@ For example:
 
 
 ### 2. Parsing
-   - Tokens are parsed into prefix or Polish notation, using the (slightly modified) Shunting-yard algorithm.
-   - Prefix notation removes the need for brackets, and makes it easier to evaluate the expression. In this notation, the operator is placed before the operands (rather than in between them).
+   - Tokens are parsed into postfix or [Reverse Polish notation](https://en.wikipedia.org/wiki/Reverse_Polish_notation), using the (slightly modified) Shunting-yard algorithm.
+   - Postfix notation removes the need for brackets, and makes it easier to evaluate the expression. In this notation, the operator is placed before the operands (rather than in between them).
    - Our tokenised list, [`A`, `AND`, `NOT`, `B`] would be parsed into [`A`, `B`, `NOT`, `AND`].
 
 
@@ -156,7 +156,7 @@ For example:
 - [x] Improve console output with colours
 - [x] Implement command line arguments
 - [ ] Add raw output options
-  - [x] Output prefix notation
+  - [x] Output postfix notation
   - [ ] Output specific output for given variables
   - [x] Output machine-readable truth table
 - [ ] Create UI for the application, either web-based or desktop-based
