@@ -1,6 +1,16 @@
-h1:focus {
-    outline: none;
+@import url('https://fonts.googleapis.com/css2?family=Figtree:wght@400;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+    font-family: Figtree, sans-serif;
 }
+
+
+
+/* #region Blazor Stuff */
 
 #blazor-error-ui {
     background: lightyellow;
@@ -30,3 +40,5 @@ h1:focus {
     .blazor-error-boundary::after {
         content: "An error has occurred."
     }
+
+/* #endregion */
