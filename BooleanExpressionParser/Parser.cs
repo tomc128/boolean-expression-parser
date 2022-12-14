@@ -11,7 +11,7 @@ class Parser
     /// </summary>
     /// <param name="tokens">The tokens to parse.</param>
     /// <returns>The root node of the expression tree.</returns>
-    public IEnumerable<Token> ParseTokens(IEnumerable<Token> tokens)
+    public IEnumerable<Token> InfixToPrefix(IEnumerable<Token> tokens)
     {
         var output = new Queue<Token>();
         var stack = new Stack<Token>();

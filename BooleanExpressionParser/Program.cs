@@ -71,7 +71,7 @@ internal class Program
             var infixTokens = tokeniser.Tokenise();
 
             var parser = new Parser();
-            var prefixTokens = parser.ParseTokens(infixTokens);
+            var prefixTokens = parser.InfixToPrefix(infixTokens);
 
             var ast = parser.GrowAst(prefixTokens, expression.VariableOrder);
 
