@@ -11,12 +11,16 @@ internal class Program
     {
         var rootCommand = new RootCommand();
 
+        // Shared arguments
+        var expressionsArgument = new Argument<string[]>("expression(s)", description: "The boolean expression(s) to evaluate.");
+
+        // Table command
+        // Takes in a list of expressions, and prints out the truth table for each one.
         var trueOption = new Option<string>(new[] { "--true", "-t" }, () => "1", description: "Character to use for true values in the truth table.");
         var falseOption = new Option<string>(new[] { "--false", "-f" }, () => "0", description: "Character to use for false values in the truth table.");
         var colourModeOption = new Option<ColourMode>(new[] { "--colour-mode", "--color-mode", "-c" }, () => ColourMode.Foreground, description: "Whether to colour the truth table with foreground or background colours (or no colours).");
         var trueColourOption = new Option<string>(new[] { "--true-colour", "--true-color" }, () => "green", description: "The colour to use for true values in the truth table.");
         var falseColourOption = new Option<string>(new[] { "--false-colour", "--false-color" }, () => "red", description: "The colour to use for false values in the truth table.");
-        var expressionsArgument = new Argument<string[]>("expression(s)", description: "The boolean expression(s) to evaluate.");
 
         var tableCommand = new Command("table", description: "Prints the truth table of a boolean expression(s). If none are provided, the user will be prompted to enter them.")
         {
@@ -28,15 +32,25 @@ internal class Program
             expressionsArgument
         };
 
-        tableCommand.SetHandler(Table, trueOption, falseOption, colourModeOption, trueColourOption, falseColourOption, expressionsArgument);
-
+        tableCommand.SetHandler(TableHandler, trueOption, falseOption, colourModeOption, trueColourOption, falseColourOption, expressionsArgument);
         rootCommand.AddCommand(tableCommand);
+
+        // Convert command
+        // Takes in a list of expressions, and converts them to prefix notation.
+        var convertCommand = new Command("convert", description: "Converts a boolean expression(s) to prefix notation. If none are provided, the user will be prompted to enter them.")
+        {
+            expressionsArgument
+        };
+
+        convertCommand.SetHandler(ConvertHandler, expressionsArgument);
+        rootCommand.AddCommand(convertCommand);
+
 
         rootCommand.Invoke(args);
     }
 
 
-    private static void Table(string @true, string @false, ColourMode colourMode, string trueColour, string falseColour, string[] args)
+    private static void TableHandler(string @true, string @false, ColourMode colourMode, string trueColour, string falseColour, string[] args)
     {
         Console.OutputEncoding = Encoding.UTF8;
 
@@ -100,6 +114,35 @@ internal class Program
         else
         {
             AnsiConsole.Markup(tables[0]);
+        }
+    }
+
+    private static void ConvertHandler(string[] args)
+    {
+        List<ExpressionWrapper> expressions;
+
+        if (args.Length == 0)
+        {
+            expressions = QueryExpressions();
+        }
+        else
+        {
+            expressions = new List<ExpressionWrapper>();
+            foreach (string arg in args)
+            {
+                expressions.Add(new ExpressionWrapper(arg));
+            }
+        }
+
+        foreach (var expression in expressions)
+        {
+            var tokeniser = new Tokeniser(expression.Expression);
+            var infixTokens = tokeniser.Tokenise();
+
+            var parser = new Parser();
+            var prefixTokens = parser.InfixToPrefix(infixTokens);
+
+            AnsiConsole.MarkupLine($"{expression.Expression} -> [bold]{string.Join(" ", prefixTokens)}[/]");
         }
     }
 
