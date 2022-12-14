@@ -6,7 +6,6 @@ namespace BooleanExpressionParser;
 
 internal class Program
 {
-
     private static void Main(string[] args)
     {
         var rootCommand = new RootCommand();
@@ -45,7 +44,6 @@ internal class Program
         convertCommand.SetHandler(ConvertHandler, expressionsArgument);
         rootCommand.AddCommand(convertCommand);
 
-
         rootCommand.Invoke(args);
     }
 
@@ -62,11 +60,7 @@ internal class Program
         }
         else
         {
-            expressions = new List<ExpressionWrapper>();
-            foreach (string arg in args)
-            {
-                expressions.Add(new ExpressionWrapper(arg));
-            }
+            expressions = args.Select(arg => new ExpressionWrapper(arg)).ToList();
         }
 
         var tables = new List<string>();
