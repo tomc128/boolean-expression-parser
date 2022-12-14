@@ -1,9 +1,9 @@
-using System.CommandLine;
+﻿using System.CommandLine;
 using System.Text;
-using BooleanExpressionParser.Formatter;
+using System;
 using Spectre.Console;
 
-namespace BooleanExpressionParser;
+namespace BooleanExpressionParser.CLI;
 
 
 enum OutputType

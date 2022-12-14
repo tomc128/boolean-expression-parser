@@ -1,3 +1,5 @@
+namespace BooleanExpressionParser.Tokens;
+
 public class VariableNode : Node
 {
     public VariableNode(String name)

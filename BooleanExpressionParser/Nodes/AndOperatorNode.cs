@@ -1,3 +1,5 @@
+namespace BooleanExpressionParser.Tokens;
+
 public class AndOperatorNode : OperatorNode
 {
     public AndOperatorNode(Node left, Node right) : base(left, right) { }

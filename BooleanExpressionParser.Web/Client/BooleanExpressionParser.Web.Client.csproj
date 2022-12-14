@@ -14,12 +14,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Shared\BooleanExpressionParserWeb.Shared.csproj" />
+		<ProjectReference Include="..\Shared\BooleanExpressionParser.Web.Shared.csproj" />
 	</ItemGroup>
 
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\..\BooleanExpressionParser\BooleanExpressionParser.csproj"/>
+		<ProjectReference Include="..\..\..\BooleanExpressionParser\BooleanExpressionParser.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

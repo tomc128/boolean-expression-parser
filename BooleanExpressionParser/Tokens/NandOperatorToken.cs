@@ -1,3 +1,5 @@
+namespace BooleanExpressionParser.Tokens;
+
 public class NandOperatorToken : OperatorToken
 {
     public NandOperatorToken() : base(2) { }

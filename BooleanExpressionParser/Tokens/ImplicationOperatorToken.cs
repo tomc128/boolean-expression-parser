@@ -1,3 +1,5 @@
+namespace BooleanExpressionParser.Tokens;
+
 public class ImplicationOperatorToken : OperatorToken
 {
     public ImplicationOperatorToken() : base(0) { }

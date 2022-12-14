@@ -1,8 +1,9 @@
 using System.Globalization;
 using System.Text;
 using Spectre.Console;
+using BooleanExpressionParser.Formatter;
 
-namespace BooleanExpressionParser.Formatter;
+namespace BooleanExpressionParser.CLI.Formatter;
 
 public enum ColourMode
 {

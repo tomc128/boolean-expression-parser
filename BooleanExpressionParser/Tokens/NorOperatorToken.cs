@@ -1,3 +1,5 @@
+namespace BooleanExpressionParser.Tokens;
+
 public class NorOperatorToken : OperatorToken
 {
     public NorOperatorToken() : base(1) { }

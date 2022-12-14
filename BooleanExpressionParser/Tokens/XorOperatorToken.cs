@@ -1,3 +1,5 @@
+namespace BooleanExpressionParser.Tokens;
+
 public class XorOperatorToken : OperatorToken
 {
     public XorOperatorToken() : base(1) { }
