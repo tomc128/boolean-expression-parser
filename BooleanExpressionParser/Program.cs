@@ -28,7 +28,7 @@ internal class Program
             expressionsArgument
         };
 
-        tableCommand.SetHandler(Run, trueOption, falseOption, colourModeOption, trueColourOption, falseColourOption, expressionsArgument);
+        tableCommand.SetHandler(Table, trueOption, falseOption, colourModeOption, trueColourOption, falseColourOption, expressionsArgument);
 
         rootCommand.AddCommand(tableCommand);
 
@@ -36,7 +36,7 @@ internal class Program
     }
 
 
-    private static void Run(string @true, string @false, ColourMode colourMode, string trueColour, string falseColour, string[] args)
+    private static void Table(string @true, string @false, ColourMode colourMode, string trueColour, string falseColour, string[] args)
     {
         Console.OutputEncoding = Encoding.UTF8;
 
