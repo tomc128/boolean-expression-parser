@@ -1,4 +1,5 @@
 ﻿@using BooleanExpressionParser;
+@using BooleanExpressionParser.Web.Client.Components
 @using BooleanExpressionParser.Web.Client.Formatters;
 
 @page "/truth-table"
@@ -8,24 +9,23 @@
 <h1>Truth Table Generator</h1>
 <p>Generate a truth table for a boolean expression.</p>
 
-<input placeholder="Enter expression" @bind="expression" />
-<button @onclick="Generate">Generate</button>
+<ExpressionInput ButtonLabel="Generate" ButtonClicked="Generate" />
 
-
-<h3>Generated Table</h3>
-
-<div class="table-container">
-    @((MarkupString)currentTable)
-</div>
+@if (currentTable is not null)
+{
+    <h3>Generated Table</h3>
+    <div class="table-container">
+        @((MarkupString)currentTable)
+    </div>
+}
 
 
 @code {
-    private string? expression;
     private string? currentTable;
 
     private HTMLFormatter formatter = new();
 
-    private void Generate()
+    private void Generate(string? expression)
     {
         if (string.IsNullOrWhiteSpace(expression)) return;
         var wrapper = new ExpressionWrapper(expression);
@@ -50,7 +50,6 @@
 
     private Ast ParseAndGrowAst(ExpressionWrapper wrapper)
     {
-
         var tokeniser = new Tokeniser(wrapper.Expression);
         var infixTokens = tokeniser.Tokenise();
 
