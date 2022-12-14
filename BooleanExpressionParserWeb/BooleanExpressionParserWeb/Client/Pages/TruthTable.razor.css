@@ -9,6 +9,7 @@
 ::deep th, ::deep td {
     padding: 1rem;
     text-align: center;
+    font-family: 'JetBrains Mono', monospace;
 }
 
     ::deep td.true {
