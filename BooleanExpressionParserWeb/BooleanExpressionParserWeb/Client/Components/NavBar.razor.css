@@ -13,11 +13,11 @@
             list-style: none;
         }
 
-            .container ul li a {
+            .container ul li ::deep .nav-link {
                 text-decoration: none;
                 color: black;
             }
 
-                .container ul li a.active {
+                .container ul li ::deep .nav-link.active {
                     font-weight: bold;
                 }

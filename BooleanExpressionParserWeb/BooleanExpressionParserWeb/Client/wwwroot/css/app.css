@@ -4,13 +4,15 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-
     font-family: Figtree, sans-serif;
 }
 
 
 
 /* #region Blazor Stuff */
+h1:focus {
+    outline: none;
+}
 
 #blazor-error-ui {
     background: lightyellow;
