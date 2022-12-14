@@ -19,7 +19,7 @@ internal class Program
     {
         Console.OutputEncoding = Encoding.UTF8;
 
-        var rootCommand = new RootCommand();
+        var rootCommand = new RootCommand(description: "A boolean expression parser and evaluator.");
 
         // Shared arguments
         var expressionsArgument = new Argument<string[]>("expression(s)", description: "The boolean expression(s) to evaluate.");

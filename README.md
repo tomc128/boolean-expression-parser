@@ -8,8 +8,9 @@ A simple boolean expression parser written in C#. It parses boolean expressions 
 - [Running](#running)
 - [Building](#building)
 - [Display](#display)
-- [Usage](#usage)
-  - [Truth table generation](#truth-table-generation)
+- [Base Command](#base-command)
+- [Truth table generation](#truth-table-generation)
+- [Notation conversion](#notation-conversion)
 - [Expressions](#expressions)
 - [Variables](#variables)
 - [How it works](#how-it-works)
@@ -39,22 +40,40 @@ The application displays an intuitive, coloured truth table output for each bool
 ![Sample screenshot](./docs/sample-screenshot.png)
 
 
-## Usage
+## Base Command
+`./BooleanExpressionParser [command] [options]`
 
-### Truth table generation
-`./BooleanExpressionParser table <expression(s)>`
-#### Arguments: <!-- omit in toc -->
-  - <expression(s)> The boolean expression(s) to evaluate
-#### Options: <!-- omit in toc -->
-  - -t, --true <true> Character to use for true values in the truth table. [default: 1]
-  - -f, --false <false> Character to use for false values in the truth table. [default: 0]
-  - -c, --colour-mode, --color-mode <colour-mode> Colour mode to use for the truth table. [default: Foreground]  [possible values: [Ff]oreground, [Bb]ackground, [Nn]one]
-  - --true-colour, --true-color <true-colour> Colour to use for true values in the truth table. [default: green]  [possible values: 16 ANSI colours, hex string, rgb string]
-  - --false-colour, --false-color <false-colour> Colour to use for false values in the truth table. [default: red]  [possible values: 16 ANSI colours, hex string, rgb string]
+### Options: <!-- omit in toc -->
+  - `-o`, `--output`, `--output-type` `<Basic|Display>` The output type to use.
 
-More usage options to be implemented in the future.
 
-For help, run `./BooleanExpressionParser --help`. For help with a specific command, run `./BooleanExpressionParser <command> --help`.
+## Truth table generation
+Converts a boolean expression(s) to prefix notation. If none are provided, the user will be prompted to enter them.
+
+### Usage: <!-- omit in toc -->
+  `./BooleanExpressionParser table [<expression(s)>...] [options]`
+### Arguments: <!-- omit in toc -->
+  - `<expression(s)>` The boolean expression(s) to evaluate.
+### Options: <!-- omit in toc -->
+  - `-t`, `--true` `<true>` Character to use for true values in the truth table. [default: 1]
+  - `-f`, `--false` `<false>` Character to use for false values in the truth table. [default: 0]
+  - `-c`, `--colour-mode`, `--color-mode` `<Background|Foreground|None>` Colour mode to use for the truth table. [default: Foreground]  (possible values: [Ff]oreground, [Bb]ackground, [Nn]one)
+  - `--true-colour`, `--true-color` `<true-colour>` Colour to use for true values in the truth table. [default: green]  (possible values: 16 ANSI colours, hex string, rgb string)
+  - `--false-colour`, `--false-color` `<false-colour>` Colour to use for false values in the truth table. [default: red]  (possible values: 16 ANSI colours, hex string, rgb string)
+
+
+## Notation conversion
+Converts a boolean expression(s) to prefix notation. If none are provided, the user will be prompted to enter them.
+
+### Usage: <!-- omit in toc -->
+`./BooleanExpressionParser convert [<expression(s)>...] [options]`
+### Arguments: <!-- omit in toc -->
+  - `<expression(s)>` The boolean expression(s) to convert
+
+
+More commands to be implemented in the future.
+
+For help, run `./BooleanExpressionParser --help`. For help with a specific command, run `./BooleanExpressionParser [command] --help` or `./BooleanExpressionParser --help [command]`.
 
 
 
@@ -137,9 +156,9 @@ For example:
 - [x] Improve console output with colours
 - [x] Implement command line arguments
 - [ ] Add raw output options
-  - [ ] Output prefix notation
+  - [x] Output prefix notation
   - [ ] Output specific output for given variables
-  - [ ] Output machine-readable truth table
+  - [x] Output machine-readable truth table
 - [ ] Create UI for the application, either web-based or desktop-based
 
 
