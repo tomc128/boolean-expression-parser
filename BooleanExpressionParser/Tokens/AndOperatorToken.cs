@@ -1,4 +1,4 @@
-class AndOperatorToken : OperatorToken
+public class AndOperatorToken : OperatorToken
 {
     public AndOperatorToken() : base(2) { }
 

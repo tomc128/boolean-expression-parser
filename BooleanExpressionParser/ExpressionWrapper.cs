@@ -1,6 +1,6 @@
 namespace BooleanExpressionParser;
 
-class ExpressionWrapper
+public class ExpressionWrapper
 {
     public string Expression { get; private set; }
     public string[] VariableOrder { get; private set; }

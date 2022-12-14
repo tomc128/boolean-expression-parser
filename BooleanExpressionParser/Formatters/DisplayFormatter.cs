@@ -4,7 +4,7 @@ using Spectre.Console;
 
 namespace BooleanExpressionParser.Formatter;
 
-enum ColourMode
+public enum ColourMode
 {
     None,
     Foreground,
@@ -12,7 +12,7 @@ enum ColourMode
 }
 
 
-class DisplayFormatter : IFormatter
+public class DisplayFormatter : IFormatter
 {
     private static int FinalPadding = 2;
 

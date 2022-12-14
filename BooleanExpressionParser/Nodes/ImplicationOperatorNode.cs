@@ -1,4 +1,4 @@
-class ImplicationOperatorNode : OperatorNode
+public class ImplicationOperatorNode : OperatorNode
 {
     public ImplicationOperatorNode(Node left, Node right) : base(left, right) { }
 

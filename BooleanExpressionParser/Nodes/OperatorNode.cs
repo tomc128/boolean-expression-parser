@@ -1,4 +1,4 @@
-abstract class OperatorNode : Node
+public abstract class OperatorNode : Node
 {
     public OperatorNode(Node left, Node? right)
     {

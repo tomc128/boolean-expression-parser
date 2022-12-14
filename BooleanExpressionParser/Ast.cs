@@ -1,6 +1,6 @@
 namespace BooleanExpressionParser;
 
-class Ast
+public class Ast
 {
 
     public Node Root { get; }

@@ -1,6 +1,6 @@
 namespace BooleanExpressionParser.Formatter
 {
-    interface IFormatter
+    public interface IFormatter
     {
         string FormatTokens(IEnumerable<Token> tokens);
 

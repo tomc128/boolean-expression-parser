@@ -3,7 +3,7 @@ using System.Text;
 namespace BooleanExpressionParser.Formatter;
 
 
-class BasicFormatter : IFormatter
+public class BasicFormatter : IFormatter
 {
     public string FormatTokens(IEnumerable<Token> tokens)
     {

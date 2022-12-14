@@ -1,4 +1,4 @@
-class VariableToken : Token
+public class VariableToken : Token
 {
     public string Name { get; }
 

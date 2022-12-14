@@ -1,4 +1,4 @@
-class OpenParenToken : Token
+public class OpenParenToken : Token
 {
     public override string ToString() => "(";
 }

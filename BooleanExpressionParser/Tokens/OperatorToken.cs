@@ -1,4 +1,4 @@
-abstract class OperatorToken : Token
+public abstract class OperatorToken : Token
 {
     protected OperatorToken(int precedence)
     {
