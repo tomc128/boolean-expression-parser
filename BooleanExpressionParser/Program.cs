@@ -51,8 +51,8 @@ internal class Program
         rootCommand.AddCommand(tableCommand);
 
         // Convert command
-        // Takes in a list of expressions, and converts them to prefix notation.
-        var convertCommand = new Command("convert", description: "Converts a boolean expression(s) to prefix notation. If none are provided, the user will be prompted to enter them.")
+        // Takes in a list of expressions, and converts them to postfix notation.
+        var convertCommand = new Command("convert", description: "Converts a boolean expression(s) to postfix notation. If none are provided, the user will be prompted to enter them.")
         {
             // outputTypeOption,
             expressionsArgument
@@ -88,9 +88,9 @@ internal class Program
             var infixTokens = tokeniser.Tokenise();
 
             var parser = new Parser();
-            var prefixTokens = parser.InfixToPrefix(infixTokens);
+            var postfixTokens = parser.InfixToPostfix(infixTokens);
 
-            var ast = parser.GrowAst(prefixTokens, expression.VariableOrder);
+            var ast = parser.GrowAst(postfixTokens, expression.VariableOrder);
 
             int numCombinations = (int)Math.Pow(2, ast.Variables.Count);
             var table = new List<bool[]>();
@@ -131,9 +131,9 @@ internal class Program
             var infixTokens = tokeniser.Tokenise();
 
             var parser = new Parser();
-            var prefixTokens = parser.InfixToPrefix(infixTokens);
+            var postfixTokens = parser.InfixToPostfix(infixTokens);
 
-            AnsiConsole.MarkupLine($"{expression.Expression} -> [bold]{formatter.FormatTokens(prefixTokens)}[/]");
+            AnsiConsole.MarkupLine($"{expression.Expression} -> [bold]{formatter.FormatTokens(postfixTokens)}[/]");
         }
     }
 

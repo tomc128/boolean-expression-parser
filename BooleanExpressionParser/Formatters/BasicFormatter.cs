@@ -12,7 +12,7 @@ class BasicFormatter : IFormatter
         foreach (var token in tokens)
         {
             string s = token.ToString()!;
-            if (token is not VariableToken && s.Length > 1) s = $"[{s}]";
+            if (token is not VariableToken && s.Length > 1) s = $"[[{s}]]";
             sb.Append(s);
         }
 
