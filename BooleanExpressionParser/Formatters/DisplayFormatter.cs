@@ -69,7 +69,7 @@ class DisplayFormatter : IFormatter
         horizontalLineTop = $"┏{horizontalLineTop}┳{resultLine}┓";
         horizontalLineMiddle = $"┣{horizontalLineMiddle}╋{resultLine}┫";
         horizontalLineBottom = $"┗{horizontalLineBottom}┻{resultLine}┛";
-        variableRow = $"┃{variableRow}┃[bold]{PadBoth(label, maxResultLength + FinalPadding)}[/]┃";
+        variableRow = $"┃{variableRow}┃[bold]{Markup.Escape(PadBoth(label, maxResultLength + FinalPadding))}[/]┃";
 
         foreach (bool[] row in table)
         {
