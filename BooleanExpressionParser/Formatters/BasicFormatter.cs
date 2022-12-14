@@ -42,8 +42,5 @@ class BasicFormatter : IFormatter
         return sb.ToString();
     }
 
-    public string JoinTruthTables(params string[] tables)
-    {
-        throw new NotImplementedException();
-    }
+    public string JoinTruthTables(params string[] tables) => string.Join(Environment.NewLine, tables);
 }
