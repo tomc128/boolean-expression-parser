@@ -1,0 +1,33 @@
+﻿@foreach (var item in Ast.Variables)
+{
+    <span>@item</span>
+    <input size="3" @bind="inputs[item]" />
+}
+
+<button @onclick="OnButtonClicked">Evaluate</button>
+
+
+@code {
+    [Parameter]
+    public Ast Ast { get; set; }
+
+    [Parameter]
+    public EventCallback<Dictionary<string, string?>> EvaluateClicked { get; set; }
+
+    private Dictionary<string, string?> inputs = new();
+
+    private Task OnButtonClicked()
+    {
+        return EvaluateClicked.InvokeAsync(inputs);
+    }
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        foreach (var item in Ast.Variables)
+        {
+            if (!inputs.ContainsKey(item)) inputs.Add(item, null);
+        }
+    }
+}

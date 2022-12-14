@@ -1,4 +1,6 @@
-class NorOperatorNode : OperatorNode
+namespace BooleanExpressionParser.Tokens;
+
+public class NorOperatorNode : OperatorNode
 {
     public NorOperatorNode(Node left, Node right) : base(left, right) { }
 

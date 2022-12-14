@@ -9,7 +9,9 @@
                 "build",
                 "${workspaceFolder}/BooleanExpressionParser.csproj",
                 "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
+                "/consoleloggerparameters:NoSummary",
+                "-c",
+                "Release",
             ],
             "problemMatcher": "$msCompile"
         },

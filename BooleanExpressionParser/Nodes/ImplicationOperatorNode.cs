@@ -1,4 +1,6 @@
-class ImplicationOperatorNode : OperatorNode
+namespace BooleanExpressionParser.Tokens;
+
+public class ImplicationOperatorNode : OperatorNode
 {
     public ImplicationOperatorNode(Node left, Node right) : base(left, right) { }
 

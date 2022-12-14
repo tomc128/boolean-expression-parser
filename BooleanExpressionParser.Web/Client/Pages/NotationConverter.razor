@@ -1,0 +1,40 @@
+﻿@page "/notation-converter"
+@using BooleanExpressionParser.Formatters;
+@using BooleanExpressionParser.Web.Client.Components
+
+<PageTitle>Notation Converter</PageTitle>
+
+<h1>Notation Converter</h1>
+<p>Converts a boolean expression into postfix (reverse Polish) notation.</p>
+
+<ExpressionInput ButtonLabel="Convert" ButtonClicked="ConvertExpression" ExpressionChanged="ExpressionChanged" />
+
+@if (postfix is not null)
+{
+    <h3>@postfix</h3>
+}
+
+@code {
+    private string? postfix;
+    private BasicFormatter formatter = new();
+
+    private void ExpressionChanged(string _)
+    {
+        postfix = null;
+    }
+
+    private void ConvertExpression(string? expression)
+    {
+        if (string.IsNullOrWhiteSpace(expression)) return;
+        var wrapper = new ExpressionWrapper(expression);
+
+        var tokeniser = new Tokeniser(wrapper.Expression);
+        var infixTokens = tokeniser.Tokenise();
+
+        var parser = new Parser();
+        var postfixTokens = parser.InfixToPostfix(infixTokens);
+
+        postfix = formatter.FormatTokens(postfixTokens);
+    }
+
+}

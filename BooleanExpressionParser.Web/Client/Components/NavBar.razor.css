@@ -1,0 +1,23 @@
+﻿.container {
+    display: flex;
+    justify-content: space-between;
+    padding: 2rem;
+}
+
+    .container ul {
+        display: flex;
+        gap: 2rem;
+    }
+
+        .container ul li {
+            list-style: none;
+        }
+
+            .container ul li ::deep .nav-link {
+                text-decoration: none;
+                color: black;
+            }
+
+                .container ul li ::deep .nav-link.active {
+                    font-weight: bold;
+                }

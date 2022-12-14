@@ -1,6 +1,8 @@
+using BooleanExpressionParser.Tokens;
+
 namespace BooleanExpressionParser;
 
-class Parser
+public class Parser
 {
     public Parser()
     {

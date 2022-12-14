@@ -1,4 +1,6 @@
-class AndOperatorToken : OperatorToken
+namespace BooleanExpressionParser.Tokens;
+
+public class AndOperatorToken : OperatorToken
 {
     public AndOperatorToken() : base(2) { }
 

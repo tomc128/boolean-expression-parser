@@ -1,18 +1,19 @@
 using System.Globalization;
 using System.Text;
+using BooleanExpressionParser.Formatters;
+using BooleanExpressionParser.Tokens;
 using Spectre.Console;
 
-namespace BooleanExpressionParser.Formatter;
+namespace BooleanExpressionParser.CLI.Formatters;
 
-enum ColourMode
+public enum ColourMode
 {
     None,
     Foreground,
     Background
 }
 
-
-class DisplayFormatter : IFormatter
+public class DisplayFormatter : IFormatter
 {
     private static int FinalPadding = 2;
 
@@ -128,7 +129,7 @@ class DisplayFormatter : IFormatter
     }
 
 
-    public String JoinTruthTables(params string[] tables)
+    public string JoinTruthTables(params string[] tables)
     {
         var sb = new StringBuilder();
 

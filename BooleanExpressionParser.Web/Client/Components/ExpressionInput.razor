@@ -1,0 +1,26 @@
+﻿<input placeholder="Enter expression" @oninput="OnInputChanged" @bind="expression"/>
+<button @onclick="OnButtonClicked">@ButtonLabel</button>
+
+
+@code {
+    [Parameter]
+    public string ButtonLabel {get; set;}
+
+    public string? expression;
+
+    [Parameter]
+    public EventCallback<string> ButtonClicked { get; set; }
+
+    [Parameter]
+    public EventCallback<string> ExpressionChanged { get; set; }
+
+    private Task OnButtonClicked()
+    {
+        return ButtonClicked.InvokeAsync(expression);
+    }
+
+    private Task OnInputChanged(ChangeEventArgs args)
+    {
+        return ExpressionChanged.InvokeAsync(args.Value.ToString());
+    }
+}

@@ -1,8 +1,9 @@
+using BooleanExpressionParser.Tokens;
 using System.Text.RegularExpressions;
 
 namespace BooleanExpressionParser;
 
-class Tokeniser
+public class Tokeniser
 {
     private readonly Regex regex = new Regex(@"([([{]|[)\]}]|[\w]+|[.&+!¬|]|=>)\s*");
     private readonly string input;

@@ -1,11 +1,12 @@
-namespace BooleanExpressionParser.Formatter
+using BooleanExpressionParser.Tokens;
+
+namespace BooleanExpressionParser.Formatters;
+
+public interface IFormatter
 {
-    interface IFormatter
-    {
-        string FormatTokens(IEnumerable<Token> tokens);
+    string FormatTokens(IEnumerable<Token> tokens);
 
-        string FormatTruthTable(Ast ast, List<bool[]> table, string label);
+    string FormatTruthTable(Ast ast, List<bool[]> table, string label);
 
-        string JoinTruthTables(params string[] tables);
-    }
+    string JoinTruthTables(params string[] tables);
 }

@@ -1,4 +1,6 @@
-abstract class OperatorToken : Token
+namespace BooleanExpressionParser.Tokens;
+
+public abstract class OperatorToken : Token
 {
     protected OperatorToken(int precedence)
     {

@@ -1,4 +1,6 @@
-class NandOperatorNode : OperatorNode
+namespace BooleanExpressionParser.Tokens;
+
+public class NandOperatorNode : OperatorNode
 {
     public NandOperatorNode(Node left, Node right) : base(left, right) { }
     

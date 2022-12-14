@@ -1,9 +1,10 @@
 using System.Text;
+using BooleanExpressionParser.Formatters;
+using BooleanExpressionParser.Tokens;
 
-namespace BooleanExpressionParser.Formatter;
+namespace BooleanExpressionParser.Formatters;
 
-
-class BasicFormatter : IFormatter
+public class BasicFormatter : IFormatter
 {
     public string FormatTokens(IEnumerable<Token> tokens)
     {

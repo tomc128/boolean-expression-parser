@@ -1,0 +1,23 @@
+﻿::deep .truth-table {
+    border-collapse: collapse;
+}
+
+::deep .truth-table, ::deep th, ::deep td {
+    border: 1px solid black;
+}
+
+::deep th, ::deep td {
+    padding: 1rem;
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+    ::deep td.true {
+        background-color: rgba(0, 255, 0, 0.25);
+        color: green;
+    }
+
+    ::deep td.false {
+        background-color: rgba(255, 0, 0, 0.25);
+        color: red;
+    }

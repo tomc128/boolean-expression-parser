@@ -1,8 +1,9 @@
+using BooleanExpressionParser.Tokens;
+
 namespace BooleanExpressionParser;
 
-class Ast
+public class Ast
 {
-
     public Node Root { get; }
 
     public List<string> Variables { get; }
