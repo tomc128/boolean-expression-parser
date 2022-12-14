@@ -1,4 +1,5 @@
 ﻿@using BooleanExpressionParser;
+@using BooleanExpressionParser.Formatter;
 @page "/truth-table"
 
 <PageTitle>Truth Table Generator</PageTitle>
@@ -10,14 +11,25 @@
 <button @onclick="Generate">Generate</button>
 
 
+<h3>Generated Table</h3>
+
+<div class="table-container">
+    @((MarkupString)currentTable)
+</div>
+
+
 @code {
     private string? expression;
+    private string? currentTable;
+
+    private HTMLFormatter formatter = new();
 
     private void Generate()
     {
         if (string.IsNullOrWhiteSpace(expression)) return;
+        var wrapper = new ExpressionWrapper(expression);
 
-        var ast = ParseAndGrowAst();
+        var ast = ParseAndGrowAst(wrapper);
 
         int numCombinations = (int)Math.Pow(2, ast.Variables.Count);
         var table = new List<bool[]>();
@@ -32,20 +44,11 @@
             table.Add(values.Append(result).ToArray());
         }
 
-        foreach (bool[] row in table)
-        {
-            foreach (bool cell in row)
-            {
-                Console.Write($"{(cell ? "1" : "0")},");
-            }
-            Console.WriteLine();
-        }
-        
+        currentTable = formatter.FormatTruthTable(ast, table, wrapper.Expression);
     }
 
-    private Ast ParseAndGrowAst()
+    private Ast ParseAndGrowAst(ExpressionWrapper wrapper)
     {
-        var wrapper = new ExpressionWrapper(expression);
 
         var tokeniser = new Tokeniser(wrapper.Expression);
         var infixTokens = tokeniser.Tokenise();
