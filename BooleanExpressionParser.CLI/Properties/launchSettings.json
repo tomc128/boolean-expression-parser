@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "BooleanExpressionParser.CLI - table": {
+      "commandName": "Project",
+      "commandLineArgs": "table"
+    },
+    "BooleanExpressionParser.CLI - convert": {
+      "commandName": "Project",
+      "commandLineArgs": "convert"
+    }
+  }
+}

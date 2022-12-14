@@ -1,4 +1,4 @@
-using BooleanExpressionParserWeb.Client;
+using BooleanExpressionParser.Web.Client;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 

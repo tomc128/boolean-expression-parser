@@ -1,3 +1,5 @@
+namespace BooleanExpressionParser.Tokens;
+
 public class XnorOperatorToken : OperatorToken
 {
     public XnorOperatorToken() : base(1) { }

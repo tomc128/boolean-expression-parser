@@ -1,3 +1,5 @@
+namespace BooleanExpressionParser.Tokens;
+
 public class VariableToken : Token
 {
     public string Name { get; }
