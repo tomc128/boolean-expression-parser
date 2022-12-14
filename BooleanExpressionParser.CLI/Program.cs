@@ -3,6 +3,7 @@ using System.Text;
 using System;
 using Spectre.Console;
 using BooleanExpressionParser.CLI.Formatters;
+using BooleanExpressionParser.Formatters;
 
 namespace BooleanExpressionParser.CLI;
 

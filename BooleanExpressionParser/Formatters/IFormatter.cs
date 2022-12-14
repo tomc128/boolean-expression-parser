@@ -1,6 +1,6 @@
 using BooleanExpressionParser.Tokens;
 
-namespace BooleanExpressionParser;
+namespace BooleanExpressionParser.Formatters;
 
 public interface IFormatter
 {

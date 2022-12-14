@@ -1,4 +1,5 @@
-﻿using BooleanExpressionParser.Tokens;
+﻿using BooleanExpressionParser.Formatters;
+using BooleanExpressionParser.Tokens;
 using System.Text;
 
 namespace BooleanExpressionParser.Web.Client.Formatters;

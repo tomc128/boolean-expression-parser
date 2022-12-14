@@ -1,5 +1,6 @@
 using System.Globalization;
 using System.Text;
+using BooleanExpressionParser.Formatters;
 using BooleanExpressionParser.Tokens;
 using Spectre.Console;
 
