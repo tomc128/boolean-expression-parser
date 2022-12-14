@@ -5,7 +5,7 @@ using Spectre.Console;
 namespace BooleanExpressionParser;
 
 
-enum Output
+enum OutputType
 {
     Display,
     Basic
@@ -24,7 +24,7 @@ internal class Program
         var expressionsArgument = new Argument<string[]>("expression(s)", description: "The boolean expression(s) to evaluate.");
 
         // Shared options
-        var outputOption = new Option<Output>(new[] { "--output", "-o" }, description: "The output format to use.");
+        var outputTypeOption = new Option<OutputType>(new[] { "--output", "--output-type", "-o" }, description: "The output type to use.");
 
         // Table command
         // Takes in a list of expressions, and prints out the truth table for each one.
@@ -36,7 +36,7 @@ internal class Program
 
         var tableCommand = new Command("table", description: "Prints the truth table of a boolean expression(s). If none are provided, the user will be prompted to enter them.")
         {
-            outputOption,
+            outputTypeOption,
             trueOption,
             falseOption,
             colourModeOption,
@@ -45,25 +45,25 @@ internal class Program
             expressionsArgument
         };
 
-        tableCommand.SetHandler(TableHandler, outputOption, trueOption, falseOption, colourModeOption, trueColourOption, falseColourOption, expressionsArgument);
+        tableCommand.SetHandler(TableHandler, outputTypeOption, trueOption, falseOption, colourModeOption, trueColourOption, falseColourOption, expressionsArgument);
         rootCommand.AddCommand(tableCommand);
 
         // Convert command
         // Takes in a list of expressions, and converts them to prefix notation.
         var convertCommand = new Command("convert", description: "Converts a boolean expression(s) to prefix notation. If none are provided, the user will be prompted to enter them.")
         {
-            outputOption,
+            outputTypeOption,
             expressionsArgument
         };
 
-        convertCommand.SetHandler(ConvertHandler, outputOption, expressionsArgument);
+        convertCommand.SetHandler(ConvertHandler, outputTypeOption, expressionsArgument);
         rootCommand.AddCommand(convertCommand);
 
         rootCommand.Invoke(args);
     }
 
 
-    private static void TableHandler(Output output, string @true, string @false, ColourMode colourMode, string trueColour, string falseColour, string[] args)
+    private static void TableHandler(OutputType outputType, string @true, string @false, ColourMode colourMode, string trueColour, string falseColour, string[] args)
     {
         var expressions = ParseExpressions(args);
 
@@ -115,9 +115,10 @@ internal class Program
         }
     }
 
-    private static void ConvertHandler(Output output, string[] args)
+    private static void ConvertHandler(OutputType outputType, string[] args)
     {
         var expressions = ParseExpressions(args);
+        var formatter = new Formatter();
 
         foreach (var expression in expressions)
         {
@@ -127,7 +128,7 @@ internal class Program
             var parser = new Parser();
             var prefixTokens = parser.InfixToPrefix(infixTokens);
 
-            AnsiConsole.MarkupLine($"{expression.Expression} -> [bold]{string.Join(" ", prefixTokens)}[/]");
+            AnsiConsole.MarkupLine($"{expression.Expression} -> [bold]{formatter.FormatTokens(prefixTokens)}[/]");
         }
     }
 
