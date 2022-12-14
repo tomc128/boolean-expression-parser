@@ -26,6 +26,7 @@ internal class Program
 
         // Shared options
         var outputTypeOption = new Option<OutputType>(new[] { "--output", "--output-type", "-o" }, description: "The output type to use.");
+        rootCommand.AddOption(outputTypeOption);
 
         // Table command
         // Takes in a list of expressions, and prints out the truth table for each one.
@@ -37,7 +38,7 @@ internal class Program
 
         var tableCommand = new Command("table", description: "Prints the truth table of a boolean expression(s). If none are provided, the user will be prompted to enter them.")
         {
-            outputTypeOption,
+            // outputTypeOption,
             trueOption,
             falseOption,
             colourModeOption,
@@ -53,7 +54,7 @@ internal class Program
         // Takes in a list of expressions, and converts them to prefix notation.
         var convertCommand = new Command("convert", description: "Converts a boolean expression(s) to prefix notation. If none are provided, the user will be prompted to enter them.")
         {
-            outputTypeOption,
+            // outputTypeOption,
             expressionsArgument
         };
 
