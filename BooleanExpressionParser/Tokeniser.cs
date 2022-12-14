@@ -25,18 +25,18 @@ class Tokeniser
             string token = match.Groups[1].Value;
             i += match.Length;
 
-            yield return token switch
+            yield return token.ToLower() switch
             {
                 "(" or "[" or "{" => new OpenParenToken(),
                 ")" or "]" or "}"  => new CloseParenToken(),
-                "AND" or "." or "&" => new AndOperatorToken(),
-                "OR" or "+" or "|" => new OrOperatorToken(),
-                "NOT" or "!" or "¬" => new NotOperatorToken(),
-                "XOR" => new XorOperatorToken(),
-                "NAND" => new NandOperatorToken(),
-                "NOR" => new NorOperatorToken(),
-                "XNOR" => new XnorOperatorToken(),
-                "IMPLIES" or "=>" => new ImplicationOperatorToken(),
+                "and" or "." or "&" => new AndOperatorToken(),
+                "or" or "+" or "|" => new OrOperatorToken(),
+                "not" or "!" or "¬" => new NotOperatorToken(),
+                "xor" => new XorOperatorToken(),
+                "nand" => new NandOperatorToken(),
+                "nor" => new NorOperatorToken(),
+                "xnor" => new XnorOperatorToken(),
+                "implies" or "=>" => new ImplicationOperatorToken(),
                 _ => new VariableToken(token)
             };
         }
