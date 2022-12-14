@@ -1,8 +1,8 @@
 using System.Text;
-using BooleanExpressionParser.Formatter;
+using BooleanExpressionParser;
+using BooleanExpressionParser.Tokens;
 
-namespace BooleanExpressionParser.CLI.Formatter;
-
+namespace BooleanExpressionParser.CLI.Formatters;
 
 public class BasicFormatter : IFormatter
 {

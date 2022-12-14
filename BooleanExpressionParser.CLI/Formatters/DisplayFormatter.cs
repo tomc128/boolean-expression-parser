@@ -1,9 +1,9 @@
 using System.Globalization;
 using System.Text;
+using BooleanExpressionParser.Tokens;
 using Spectre.Console;
-using BooleanExpressionParser.Formatter;
 
-namespace BooleanExpressionParser.CLI.Formatter;
+namespace BooleanExpressionParser.CLI.Formatters;
 
 public enum ColourMode
 {
@@ -11,7 +11,6 @@ public enum ColourMode
     Foreground,
     Background
 }
-
 
 public class DisplayFormatter : IFormatter
 {
@@ -129,7 +128,7 @@ public class DisplayFormatter : IFormatter
     }
 
 
-    public String JoinTruthTables(params string[] tables)
+    public string JoinTruthTables(params string[] tables)
     {
         var sb = new StringBuilder();
 

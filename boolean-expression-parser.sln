@@ -11,10 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BooleanExpressionParser.Web
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BooleanExpressionParser.Web.Shared", "BooleanExpressionParser.Web\Shared\BooleanExpressionParser.Web.Shared.csproj", "{18A5B16B-54E6-4450-8AB3-A92AE6D51AA0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BooleanExpressionParser.CLI", "BooleanExpressionParser.CLI\BooleanExpressionParser.CLI.csproj", "{A2DF50D3-FD03-409E-AF9F-9D7817FFAA35}"
-	ProjectSection(ProjectDependencies) = postProject
-		{3703002C-09C7-47F1-90EA-2D4F806CBE9A} = {3703002C-09C7-47F1-90EA-2D4F806CBE9A}
-	EndProjectSection
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BooleanExpressionParser.CLI", "BooleanExpressionParser.CLI\BooleanExpressionParser.CLI.csproj", "{A2DF50D3-FD03-409E-AF9F-9D7817FFAA35}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

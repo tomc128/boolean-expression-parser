@@ -1,8 +1,7 @@
-﻿using BooleanExpressionParser;
-using BooleanExpressionParser.Formatter;
+﻿using BooleanExpressionParser.Tokens;
 using System.Text;
 
-namespace BooleanExpressionParserWeb.Client;
+namespace BooleanExpressionParser.Web.Client.Formatters;
 
 public class HTMLFormatter : IFormatter
 {

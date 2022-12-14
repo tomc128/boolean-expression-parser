@@ -15,16 +15,11 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Shared\BooleanExpressionParser.Web.Shared.csproj" />
-	</ItemGroup>
-
-
-	<ItemGroup>
-		<ProjectReference Include="..\..\..\BooleanExpressionParser\BooleanExpressionParser.csproj" />
+		<ProjectReference Include="..\..\BooleanExpressionParser\BooleanExpressionParser.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
-			<ProjectReference Include="..\..\..\BooleanExpressionParser\BooleanExpressionParser.csproj" />
-</ItemGroup>
+	</ItemGroup>
 
 </Project>
