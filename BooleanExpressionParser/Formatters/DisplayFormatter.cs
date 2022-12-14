@@ -31,10 +31,10 @@ class DisplayFormatter : IFormatter
     {
         var sb = new StringBuilder();
 
-        foreach (var token in tokens)
+        foreach (Token token in tokens)
         {
             string s = token.ToString()!;
-            if (token is not VariableToken && s.Length > 1) s = $"[[{s}]]";
+            if (token is OperatorToken && s.Length > 1) s = $"[[{s}]]";
             sb.Append(s);
         }
 
