@@ -1,5 +1,6 @@
 using System.CommandLine;
 using System.Text;
+using BooleanExpressionParser.Formatter;
 using Spectre.Console;
 
 namespace BooleanExpressionParser;
@@ -68,14 +69,17 @@ internal class Program
         var expressions = ParseExpressions(args);
 
         var tables = new List<string>();
-        var formatter = new Formatter
+
+        var formatter = GetFormatter(outputType);
+
+        if (formatter is DisplayFormatter displayFormatter)
         {
-            True = @true,
-            False = @false,
-            ColourMode = colourMode,
-            TrueColour = trueColour,
-            FalseColour = falseColour
-        };
+            displayFormatter.True = @true;
+            displayFormatter.False = @false;
+            displayFormatter.ColourMode = colourMode;
+            displayFormatter.TrueColour = trueColour;
+            displayFormatter.FalseColour = falseColour;
+        }
 
         foreach (var expression in expressions)
         {
@@ -118,7 +122,7 @@ internal class Program
     private static void ConvertHandler(OutputType outputType, string[] args)
     {
         var expressions = ParseExpressions(args);
-        var formatter = new Formatter();
+        var formatter = GetFormatter(outputType);
 
         foreach (var expression in expressions)
         {
@@ -134,6 +138,13 @@ internal class Program
 
 
     static List<ExpressionWrapper> ParseExpressions(string[] args) => args.Length == 0 ? QueryExpressions() : args.Select(arg => new ExpressionWrapper(arg)).ToList();
+
+    static IFormatter GetFormatter(OutputType outputType) => outputType switch
+    {
+        OutputType.Display => new DisplayFormatter(),
+        OutputType.Basic => new BasicFormatter(),
+        _ => throw new ArgumentOutOfRangeException(nameof(outputType), outputType, null)
+    };
 
 
     static List<ExpressionWrapper> QueryExpressions()

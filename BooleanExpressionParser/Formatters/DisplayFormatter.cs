@@ -2,7 +2,7 @@ using System.Globalization;
 using System.Text;
 using Spectre.Console;
 
-namespace BooleanExpressionParser;
+namespace BooleanExpressionParser.Formatter;
 
 enum ColourMode
 {
@@ -12,7 +12,7 @@ enum ColourMode
 }
 
 
-class Formatter
+class DisplayFormatter : IFormatter
 {
     private static int FinalPadding = 2;
 
