@@ -1,0 +1,58 @@
+﻿@using BooleanExpressionParser;
+@page "/truth-table"
+
+<PageTitle>Truth Table Generator</PageTitle>
+
+<h1>Truth Table Generator</h1>
+<p>Generate a truth table for a boolean expression.</p>
+
+<input placeholder="Enter expression" @bind="expression" />
+<button @onclick="Generate">Generate</button>
+
+
+@code {
+    private string? expression;
+
+    private void Generate()
+    {
+        if (string.IsNullOrWhiteSpace(expression)) return;
+
+        var ast = ParseAndGrowAst();
+
+        int numCombinations = (int)Math.Pow(2, ast.Variables.Count);
+        var table = new List<bool[]>();
+        for (int i = 0; i < numCombinations; i++)
+        {
+            var binary = Convert.ToString(i, 2).PadLeft(ast.Variables.Count, '0');
+            var values = binary.Select(c => c == '1').ToArray();
+
+            var variables = ast.Variables.Zip(values, (k, v) => new { k, v }).ToDictionary(x => x.k, x => x.v);
+
+            var result = ast.Root.Evaluate(variables);
+            table.Add(values.Append(result).ToArray());
+        }
+
+        foreach (bool[] row in table)
+        {
+            foreach (bool cell in row)
+            {
+                Console.Write($"{(cell ? "1" : "0")},");
+            }
+            Console.WriteLine();
+        }
+        
+    }
+
+    private Ast ParseAndGrowAst()
+    {
+        var wrapper = new ExpressionWrapper(expression);
+
+        var tokeniser = new Tokeniser(wrapper.Expression);
+        var infixTokens = tokeniser.Tokenise();
+
+        var parser = new Parser();
+        var postfixTokens = parser.InfixToPostfix(infixTokens);
+
+        return parser.GrowAst(postfixTokens, wrapper.VariableOrder);
+    }
+}
