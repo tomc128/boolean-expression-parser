@@ -1,0 +1,56 @@
+﻿@page "/evaluator"
+@using BooleanExpressionParser.Web.Client.Components
+
+<PageTitle>Expression Evaluator</PageTitle>
+
+<h1>Expression Evaluator</h1>
+<p>Produces the output of an expression for given values.</p>
+
+<ExpressionInput ButtonLabel="Load" ButtonClicked="ParseExpression" ExpressionChanged="ExpressionChanged" />
+
+@if (expressionParsed)
+{
+    <ValueInput Ast="ast" EvaluateClicked="Evaluate"/>
+}
+
+@if (result is not null)
+{
+    <h2>@result</h2>
+}
+
+@code {
+    private bool expressionParsed = false;
+    private Ast? ast;
+    private bool? result;
+
+    private void ExpressionChanged(string _)
+    {
+        expressionParsed = false;
+        result = null;
+    }
+
+    private void ParseExpression(string? expression)
+    {
+        if (string.IsNullOrWhiteSpace(expression)) return;
+        var wrapper = new ExpressionWrapper(expression);
+
+        var tokeniser = new Tokeniser(wrapper.Expression);
+        var infixTokens = tokeniser.Tokenise();
+
+        var parser = new Parser();
+        var postfixTokens = parser.InfixToPostfix(infixTokens);
+
+        ast = parser.GrowAst(postfixTokens, wrapper.VariableOrder);
+
+        expressionParsed = true;
+    }
+
+    private void Evaluate(Dictionary<string, string?> inputs)
+    {
+        // Parse inputs
+        var values = inputs.Select(x => new { Key = x.Key, Value = x.Value == "1" }).ToDictionary(pair => pair.Key, pair => pair.Value);
+        
+        result = ast.Root.Evaluate(values);
+    }
+}
+
