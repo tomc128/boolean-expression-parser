@@ -3,11 +3,9 @@
 A library and accompanying CLI and WebUI for parsing, evaluating and generating truth tables for boolean logic expressions.
 
 
-## Contents <!-- omit in toc -->
+## WebUI
 
-- [Make up of the project](#make-up-of-the-project)
-- [Wiki](#wiki)
-- [Found an issue?](#found-an-issue)
+The WebUI is available at [https://bep.tomchapman.dev/](https://bep.tomchapman.dev/). This is updated manually when a new release is made.
 
 
 
