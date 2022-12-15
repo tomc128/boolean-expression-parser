@@ -7,7 +7,10 @@
 <h1>Notation Converter</h1>
 <p>Converts a boolean expression into postfix (reverse Polish) notation.</p>
 
-<ExpressionInput ButtonLabel="Convert" ButtonClicked="ConvertExpression" ExpressionChanged="ExpressionChanged" />
+<ExpressionInput ButtonClicked="ConvertExpression" ExpressionChanged="ExpressionChanged">
+    <span>Convert</span>
+    <iconify-icon icon="fluent:arrow-right-20-filled"></iconify-icon>
+</ExpressionInput>
 
 @if (postfix is not null)
 {

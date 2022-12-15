@@ -12,11 +12,14 @@
         }
     </ul>
 
-    <button @onclick="OnButtonClicked">Evaluate</button>
+    <button @onclick="OnButtonClicked">@ChildContent</button>
 </div>
 
 
 @code {
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
     [Parameter]
     public Ast Ast { get; set; }
 

@@ -49,6 +49,7 @@ li {
         height: 1.5rem;
         border-radius: 1.5rem;
         border: 1px solid rgba(0, 0, 0, 0.25);
+        background-color: rgba(255, 0, 0, 0.2);
     }
 
         .container .checkmark:after {
@@ -59,17 +60,17 @@ li {
 
     /* Unchecked Hover */
     .container:hover input ~ .checkmark {
-        background-color: rgba(0, 0, 0, 0.1);
+        background-color: rgba(255, 0, 0, 0.3);
     }
 
     /* Checked */
     .container input:checked ~ .checkmark {
-        background-color: rgba(0, 0, 0, 0.75);
+        background-color: rgba(0, 255, 0, 0.2);
     }
 
     /* Checked Hover */
     .container:hover input:checked ~ .checkmark {
-        background-color: rgba(0, 0, 0, 0.85);
+        background-color: rgba(0, 255, 0, 0.3);
     }
 
 button {
