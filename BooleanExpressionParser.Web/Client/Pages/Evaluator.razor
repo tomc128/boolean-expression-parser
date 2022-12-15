@@ -6,12 +6,14 @@
 <h1>Expression Evaluator</h1>
 <p>Produces the output of an expression for given values.</p>
 
-<ExpressionInput ButtonClicked="ParseExpression" ExpressionChanged="ExpressionChanged"><iconify-icon icon="fluent:arrow-right-20-filled"></iconify-icon></ExpressionInput>
+<div class="inputs">
+    <ExpressionInput ButtonClicked="ParseExpression" ExpressionChanged="ExpressionChanged"><iconify-icon icon="fluent:arrow-right-20-filled"></iconify-icon></ExpressionInput>
 
-@if (expressionParsed)
-{
-    <ValueInput Ast="ast" EvaluateClicked="Evaluate"/>
-}
+    @if (expressionParsed)
+    {
+        <ValueInput Ast="ast" EvaluateClicked="Evaluate" />
+    }
+</div>
 
 @if (result is not null)
 {
@@ -45,12 +47,9 @@
         expressionParsed = true;
     }
 
-    private void Evaluate(Dictionary<string, string?> inputs)
+    private void Evaluate(Dictionary<string, bool> inputs)
     {
-        // Parse inputs
-        var values = inputs.Select(x => new { Key = x.Key, Value = x.Value == "1" }).ToDictionary(pair => pair.Key, pair => pair.Value);
-        
-        result = ast.Root.Evaluate(values);
+        result = ast.Root.Evaluate(inputs);
     }
 }
 

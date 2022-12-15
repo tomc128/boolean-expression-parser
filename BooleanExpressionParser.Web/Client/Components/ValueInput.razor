@@ -1,10 +1,19 @@
-﻿@foreach (var item in Ast.Variables)
-{
-    <span>@item</span>
-    <input size="3" @bind="inputs[item]" />
-}
+﻿<div class="value-input">
+    <ul>
+        @foreach (var item in Ast.Variables)
+        {
+            <li>
+                <label class="container">
+                    <span class="label">@item</span>
+                    <input type="checkbox" @bind="inputs[item]"/>
+                    <span class="checkmark"></span>
+                </label>
+            </li>
+        }
+    </ul>
 
-<button @onclick="OnButtonClicked">Evaluate</button>
+    <button @onclick="OnButtonClicked">Evaluate</button>
+</div>
 
 
 @code {
@@ -12,9 +21,9 @@
     public Ast Ast { get; set; }
 
     [Parameter]
-    public EventCallback<Dictionary<string, string?>> EvaluateClicked { get; set; }
+    public EventCallback<Dictionary<string, bool>> EvaluateClicked { get; set; }
 
-    private Dictionary<string, string?> inputs = new();
+    private Dictionary<string, bool> inputs = new();
 
     private Task OnButtonClicked()
     {
@@ -27,7 +36,7 @@
 
         foreach (var item in Ast.Variables)
         {
-            if (!inputs.ContainsKey(item)) inputs.Add(item, null);
+            if (!inputs.ContainsKey(item)) inputs.Add(item, false);
         }
     }
 }
