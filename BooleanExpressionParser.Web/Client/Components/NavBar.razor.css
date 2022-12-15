@@ -2,10 +2,12 @@
     display: flex;
     justify-content: space-between;
     padding: 2rem;
+    align-items: center;
 }
 
     .container ul {
         display: flex;
+        align-items: center;
         gap: 2rem;
     }
 
@@ -13,11 +15,20 @@
             list-style: none;
         }
 
-            .container ul li ::deep .nav-link {
+            .container ul li ::deep .nav-link, .container ul li a {
                 text-decoration: none;
                 color: black;
             }
 
                 .container ul li ::deep .nav-link.active {
                     font-weight: bold;
+                }
+
+            .container ul li iconify-icon {
+                font-size: 1.5rem;
+                vertical-align: text-bottom;
+            }
+
+                .container ul li iconify-icon:hover {
+                    color: rgb(80, 80, 80);
                 }

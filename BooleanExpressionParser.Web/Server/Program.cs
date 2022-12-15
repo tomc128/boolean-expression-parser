@@ -18,7 +18,7 @@ else
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection(); // Disable HTTPS; therefore only use this server through a HTTPS proxy
 app.UseBlazorFrameworkFiles();
 app.UseStaticFiles();
 

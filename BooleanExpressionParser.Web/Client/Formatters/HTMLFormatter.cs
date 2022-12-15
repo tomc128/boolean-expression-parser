@@ -33,24 +33,33 @@ public class HTMLFormatter : IFormatter
 
         sb.Append("<table class=\"truth-table\">");
 
+        sb.Append("<thead>");
         sb.Append("<tr>");
         for (int i = 0; i < ast.Variables.Count; i++)
         {
             string? item = ast.Variables[i];
             sb.Append($"<th>{item}</th>");
         }
-        sb.Append($"<th>{label}</th>");
+        sb.Append($"<th class=\"result\">{label}</th>");
         sb.Append("</tr>");
+        sb.Append("</thead>");
 
+        sb.Append("<tbody>");
         foreach (bool[] row in table)
         {
             sb.Append("<tr>");
             for (int i = 0; i < row.Length; i++)
             {
-                sb.Append($"<td class=\"{(row[i] ? "true" : "false")}\">{(row[i] ? "1" : "0")}</td>");
+                if (i != row.Length - 1)
+                    sb.Append($"<td class=\"{(row[i] ? "true" : "false")}\">{(row[i] ? "1" : "0")}</td>");
+                else
+                    sb.Append($"<td class=\"{(row[i] ? "true" : "false")} result\">{(row[i] ? "1" : "0")}</td>");
             }
             sb.Append("</tr>");
         }
+        sb.Append("</tbody>");
+
+        sb.Append("</table>");
 
         return sb.ToString();
     }

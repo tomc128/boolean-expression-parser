@@ -1,10 +1,12 @@
-﻿<input placeholder="Enter expression" @oninput="OnInputChanged" @bind="expression"/>
-<button @onclick="OnButtonClicked">@ButtonLabel</button>
+﻿<div class="expression-input">
+    <input type="text" placeholder="Enter expression" @oninput="OnInputChanged" @bind="expression" />
+    <button @onclick="OnButtonClicked">@ChildContent</button>
+</div>
 
 
 @code {
     [Parameter]
-    public string ButtonLabel {get; set;}
+    public RenderFragment ChildContent { get; set; }
 
     public string? expression;
 

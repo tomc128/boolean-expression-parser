@@ -9,7 +9,10 @@
 <h1>Truth Table Generator</h1>
 <p>Generate a truth table for a boolean expression.</p>
 
-<ExpressionInput ButtonLabel="Generate" ButtonClicked="Generate" />
+<ExpressionInput ButtonClicked="Generate">
+    <span>Generate</span>
+    <iconify-icon icon="fluent:arrow-right-20-filled"></iconify-icon>
+</ExpressionInput>
 
 @if (currentTable is not null)
 {
