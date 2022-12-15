@@ -1,22 +1,26 @@
-﻿/* #region SASS Variables */
+﻿/* Construction */
+/* Colours */
 :root {
   --background-one: #fff;
   --background-two: #eee;
   --background-three: #ddd;
-  --text-title: #000;
-  --text-body: #333;
+  --text-title: #1a211b;
+  --text-body: #262926;
+  --primary: #02c415;
+  --on-primary: #000;
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --background-one: #000;
-    --background-two: #111;
-    --background-three: #222;
-    --text-title: #fff;
-    --text-body: #ccc;
+    --background-one: #1a1f1a;
+    --background-two: #1b241d;
+    --background-three: #202e21;
+    --text-title: #cae8cd;
+    --text-body: #c1d4c2;
+    --primary: #40ff53;
+    --on-primary: #000;
   }
 }
 
-/* #endregion */
 .expression-input {
   margin: 1rem;
   display: inline-flex;
@@ -24,6 +28,7 @@
   border-radius: 8px;
   overflow: hidden;
   border: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: var(--background-three);
 }
 
 input[type=text] {
@@ -33,6 +38,8 @@ input[type=text] {
   font-weight: bold;
   font-family: "JetBrains Mono", monospace;
   border-radius: 8px 0 0 8px;
+  background-color: transparent;
+  color: var(--text-body);
 }
 
 button {
@@ -44,8 +51,12 @@ button {
   border-radius: 0 8px 8px 0;
   cursor: pointer;
   font-size: 1rem;
-  background-color: rgb(240, 240, 240);
+  background-color: var(--primary);
+}
+button ::deep span {
+  color: var(--on-primary);
 }
 button ::deep iconify-icon {
   font-size: 1.25rem;
+  color: var(--on-primary);
 }

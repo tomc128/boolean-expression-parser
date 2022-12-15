@@ -7,6 +7,7 @@
     border-radius: variables.$border-radius;
     overflow: hidden;
     border: 1px solid rgba(0, 0, 0, 0.1);
+    background-color: var(--background-three);
 }
 
 ul {
@@ -34,6 +35,7 @@ li {
     flex-direction: column;
     align-items: center;
     cursor: pointer;
+
     /* Hide default checkbox*/
     input[type=checkbox] {
         position: absolute;
@@ -83,11 +85,16 @@ button {
     border-radius: 0 variables.$border-radius variables.$border-radius 0;
     cursor: pointer;
     font-size: 1rem;
-    background-color: rgb(240, 240, 240);
+    background-color: var(--primary);
 
     ::deep {
+        span {
+            color: var(--on-primary);
+        }
+
         iconify-icon {
             font-size: 1.25rem;
+            color: var(--on-primary);
         }
     }
 }

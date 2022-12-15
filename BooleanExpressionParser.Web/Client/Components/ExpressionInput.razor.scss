@@ -8,6 +8,7 @@
     border-radius: variables.$border-radius;
     overflow: hidden;
     border: 1px solid rgba(0, 0, 0, 0.1);
+    background-color: var(--background-three);
 }
 
 input[type=text] {
@@ -17,6 +18,8 @@ input[type=text] {
     font-weight: bold;
     font-family: 'JetBrains Mono', monospace;
     border-radius: variables.$border-radius 0 0 variables.$border-radius;
+    background-color: transparent;
+    color: var(--text-body);
 }
 
 button {
@@ -28,11 +31,16 @@ button {
     border-radius: 0 variables.$border-radius variables.$border-radius 0;
     cursor: pointer;
     font-size: 1rem;
-    background-color: rgb(240, 240, 240);
+    background-color: var(--primary);
 
     ::deep {
+        span {
+            color: var(--on-primary);
+        }
+
         iconify-icon {
             font-size: 1.25rem;
+            color: var(--on-primary);
         }
     }
 }
