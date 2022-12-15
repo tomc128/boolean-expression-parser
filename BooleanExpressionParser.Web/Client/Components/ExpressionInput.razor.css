@@ -1,33 +1,51 @@
-﻿.expression-input {
-    margin: 1rem;
-    display: inline-flex;
-    box-shadow: 0px 2.6px 2.7px rgba(0, 0, 0, 0.045), 0px 7.1px 7.5px rgba(0, 0, 0, 0.065), 0px 17.2px 18.1px rgba(0, 0, 0, 0.085), 0px 57px 60px rgba(0, 0, 0, 0.13);
-    border-radius: 8px;
-    overflow: hidden;
-    border: 1px solid rgba(0, 0, 0, 0.1);
+﻿/* #region SASS Variables */
+:root {
+  --background-one: #fff;
+  --background-two: #eee;
+  --background-three: #ddd;
+  --text-title: #000;
+  --text-body: #333;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-one: #000;
+    --background-two: #111;
+    --background-three: #222;
+    --text-title: #fff;
+    --text-body: #ccc;
+  }
+}
+
+/* #endregion */
+.expression-input {
+  margin: 1rem;
+  display: inline-flex;
+  box-shadow: 0px 2.6px 2.7px rgba(0, 0, 0, 0.045), 0px 7.1px 7.5px rgba(0, 0, 0, 0.065), 0px 17.2px 18.1px rgba(0, 0, 0, 0.085), 0px 57px 60px rgba(0, 0, 0, 0.13);
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 input[type=text] {
-    padding: 1rem;
-    border: none;
-    font-size: 1.25rem;
-    font-weight: bold;
-    font-family: 'JetBrains Mono', monospace;
-    border-radius: 8px 0 0 8px;
+  padding: 1rem;
+  border: none;
+  font-size: 1.25rem;
+  font-weight: bold;
+  font-family: "JetBrains Mono", monospace;
+  border-radius: 8px 0 0 8px;
 }
 
 button {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 1rem;
-    border: none;
-    border-radius: 0 8px 8px 0;
-    cursor: pointer;
-    font-size: 1rem;
-    background-color: rgb(240, 240, 240);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  border: none;
+  border-radius: 0 8px 8px 0;
+  cursor: pointer;
+  font-size: 1rem;
+  background-color: rgb(240, 240, 240);
 }
-
-    button ::deep iconify-icon {
-        font-size: 1.25rem;
-    }
+button ::deep iconify-icon {
+  font-size: 1.25rem;
+}

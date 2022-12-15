@@ -1,0 +1,42 @@
+﻿.container {
+    display: flex;
+    justify-content: space-between;
+    padding: 2rem;
+    align-items: center;
+
+    ul {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+
+        li {
+            list-style: none;
+
+            iconify-icon {
+                font-size: 1.5rem;
+                vertical-align: text-bottom;
+
+                &:hover {
+                    color: rgb(80, 80, 80);
+                }
+            }
+
+            ::deep {
+                // Need to access .nav-link using deep, as it is a separate component (NavLink)
+                .nav-link {
+                    text-decoration: none;
+                    color: var(--text-body);
+
+                    &.active {
+                        font-weight: bold;
+                    }
+                }
+
+                a {
+                    text-decoration: none;
+                    color: var(--text-body);
+                }
+            }
+        }
+    }
+}

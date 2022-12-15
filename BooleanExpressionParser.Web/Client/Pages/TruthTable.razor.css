@@ -1,42 +1,32 @@
 ﻿.table-container {
-    margin: 1rem;
+  margin: 1rem;
 }
-
 
 ::deep table.truth-table {
-    display: inline-table;
-    border-collapse: collapse;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0px 2.6px 2.7px rgba(0, 0, 0, 0.045), 0px 7.1px 7.5px rgba(0, 0, 0, 0.065), 0px 17.2px 18.1px rgba(0, 0, 0, 0.085), 0px 57px 60px rgba(0, 0, 0, 0.13);
-    border: 1px solid rgba(0, 0, 0, 0.1);
+  display: inline-table;
+  border-collapse: collapse;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0px 2.6px 2.7px rgba(0, 0, 0, 0.045), 0px 7.1px 7.5px rgba(0, 0, 0, 0.065), 0px 17.2px 18.1px rgba(0, 0, 0, 0.085), 0px 57px 60px rgba(0, 0, 0, 0.13);
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
-
-::deep table.truth-table, ::deep th, ::deep td {
-    /*    border: 1px solid black;*/
+::deep table.truth-table tbody {
+  border-radius: 8px;
+  overflow: hidden;
 }
-
-::deep tbody {
-    border-radius: 8px;
-    overflow: hidden;
+::deep table.truth-table th, ::deep table.truth-table td {
+  padding: 1rem;
+  text-align: center;
+  font-family: "JetBrains Mono", monospace;
 }
-
-::deep th, ::deep td {
-    padding: 1rem;
-    text-align: center;
-    font-family: 'JetBrains Mono', monospace;
+::deep table.truth-table td.true {
+  background-color: rgba(0, 255, 0, 0.2);
+  color: green;
 }
-
-    ::deep td.true {
-        background-color: rgba(0, 255, 0, 0.2);
-        color: green;
-    }
-
-    ::deep td.false {
-        background-color: rgba(255, 0, 0, 0.2);
-        color: red;
-    }
-
+::deep table.truth-table td.false {
+  background-color: rgba(255, 0, 0, 0.2);
+  color: red;
+}
 ::deep .result {
-    border-left: 1px solid rgba(0, 0, 0, 0.2);
+  border-left: 1px solid rgba(0, 0, 0, 0.2);
 }

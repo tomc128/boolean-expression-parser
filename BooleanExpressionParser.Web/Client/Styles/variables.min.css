@@ -1,0 +1,1 @@
+﻿:root{--background-one:#fff;--background-two:#eee;--background-three:#ddd;--text-title:#000;--text-body:#333;}@media(prefers-color-scheme:dark){:root{--background-one:#000;--background-two:#111;--background-three:#222;--text-title:#fff;--text-body:#ccc;}}

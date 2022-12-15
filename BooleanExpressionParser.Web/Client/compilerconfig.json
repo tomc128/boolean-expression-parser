@@ -1,0 +1,44 @@
+[
+  {
+    "outputFile": "Pages/Evaluator.razor.css",
+    "inputFile": "Pages/Evaluator.razor.scss",
+    "sourceMap": false,
+    "useNodeSass": false
+  },
+  {
+    "outputFile": "Pages/TruthTable.razor.css",
+    "inputFile": "Pages/TruthTable.razor.scss",
+    "sourceMap": false,
+    "useNodeSass": false
+  },
+  {
+    "outputFile": "Components/ExpressionInput.razor.css",
+    "inputFile": "Components/ExpressionInput.razor.scss",
+    "sourceMap": false,
+    "useNodeSass": false
+  },
+  {
+    "outputFile": "Components/NavBar.razor.css",
+    "inputFile": "Components/NavBar.razor.scss",
+    "sourceMap": false,
+    "useNodeSass": false
+  },
+  {
+    "outputFile": "Components/ValueInput.razor.css",
+    "inputFile": "Components/ValueInput.razor.scss",
+    "sourceMap": false,
+    "useNodeSass": false
+  },
+  {
+    "outputFile": "wwwroot/css/app.css",
+    "inputFile": "Styles/app.scss",
+    "sourceMap": false,
+    "useNodeSass": false
+  },
+  {
+    "outputFile": "Styles/variables.css",
+    "inputFile": "Styles/variables.scss",
+    "sourceMap": false,
+    "useNodeSass": false
+  }
+]
