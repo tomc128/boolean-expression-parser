@@ -5,9 +5,36 @@
 
 <div class="container">
     <div class="input">
-        <ExpressionMultiInput>
+        <ExpressionMultiInput ExpressionChanged="OnExpressionChanged" ButtonClicked="OnButtonClicked" Method="@method">
             Go
         </ExpressionMultiInput>
     </div>
+
+    <div class="output">
+        <p>Result: @result</p>
+    </div>
 </div>
 
+@code {
+
+    private bool resultShown = false;
+    private Ast? ast;
+    private string? method;
+
+    private string result = "Result";
+
+    private void OnExpressionChanged()
+    {
+        resultShown = false;
+        Console.WriteLine("Expression changed, method: " + method);
+    }
+
+    private void OnButtonClicked(string expression)
+    {
+        if (string.IsNullOrWhiteSpace(expression)) return;
+
+        Console.WriteLine("Button clicked, expression: " + expression);
+        result = "Result, method: " + method + ", expression: " + expression;
+    }
+
+}

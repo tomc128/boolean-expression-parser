@@ -1,6 +1,6 @@
 ﻿<div class="expression-multi-input">
     <input class="expression-input" type="text" placeholder="Expression" @oninput="OnInputChanged" @bind="expression"/>
-    <select class="method-select">
+    <select class="method-select" @bind="@Method">
         <option value="truth-table">generate truth table</option>
         <option value="evaluate">evaluate</option>
         <option value="notation-convert">convert notation</option>
@@ -19,6 +19,10 @@
 
     [Parameter]
     public EventCallback<string> ExpressionChanged { get; set; }
+    
+    [Parameter]
+    public string Method { get; set; } = "truth-table";
+    
 
     private Task OnButtonClicked()
     {
