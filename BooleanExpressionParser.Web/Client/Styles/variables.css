@@ -11,8 +11,6 @@
   --border: #C6CADC;
   --primary: #F15025;
   --on-primary: #0b0c10;
-  /* #region old */
-  /* #endregion */
 }
 @media (prefers-color-scheme: dark) {
   :root {

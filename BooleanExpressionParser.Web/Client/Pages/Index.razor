@@ -1,7 +1,13 @@
 ﻿@page "/"
+@using BooleanExpressionParser.Web.Client.Components
 
-<PageTitle>Index Page</PageTitle>
+<PageTitle>BEP - Boolean Expression Parser</PageTitle>
 
-<h1>BooleanExpressionParser - Web</h1>
-<p>This is a web UI for BooleanExpressionParser.</p>
-<p>Enter a boolean expression and click "Parse" to see the result.</p>
+<div class="container">
+    <div class="input">
+        <ExpressionMultiInput>
+            Go
+        </ExpressionMultiInput>
+    </div>
+</div>
+

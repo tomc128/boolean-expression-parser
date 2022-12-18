@@ -1,0 +1,62 @@
+﻿@use '../Styles/variables';
+
+.expression-multi-input {
+  display: inline-flex;
+  gap: 1rem;
+  box-shadow: variables.$large-shadow;
+  border-radius: variables.$border-radius;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background-color: var(--control);
+  
+  .expression-input {
+    padding: 1rem;
+    border: none;
+    font-size: 1.25rem;
+    font-weight: bold;
+    font-family: 'JetBrains Mono', monospace;
+    border-radius: variables.$border-radius;
+    background-color: transparent;
+    color: var(--on-control-text);
+  }
+  
+  .method-select {
+    padding: 1rem;
+    border: none;
+    font-size: 1rem;
+    font-family: 'JetBrains Mono', monospace;
+    border-radius: variables.$border-radius;
+    background-color: transparent;
+    color: var(--on-control-text);
+          
+    option {
+      background-color: var(--control);
+      color: var(--on-control-text);
+    }
+  }
+  
+  button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    border: none;
+    border-radius: variables.$border-radius;
+    cursor: pointer;
+    font-size: 1rem;
+    background-color: var(--primary);
+    
+    ::deep {
+      span {
+        color: var(--on-primary);
+      }
+      
+      iconify-icon {
+        font-size: 1.25rem;
+        color: var(--on-primary);
+      }
+    }
+  }
+}
+
+

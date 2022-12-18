@@ -1,0 +1,32 @@
+﻿<div class="expression-multi-input">
+    <input class="expression-input" type="text" placeholder="Expression" @oninput="OnInputChanged" @bind="expression"/>
+    <select class="method-select">
+        <option value="truth-table">generate truth table</option>
+        <option value="evaluate">evaluate</option>
+        <option value="notation-convert">convert notation</option>
+    </select>
+    <button @onclick="OnButtonClicked">@ChildContent</button>
+</div>
+
+@code {
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    private string? expression;
+
+    [Parameter]
+    public EventCallback<string> ButtonClicked { get; set; }
+
+    [Parameter]
+    public EventCallback<string> ExpressionChanged { get; set; }
+
+    private Task OnButtonClicked()
+    {
+        return ButtonClicked.InvokeAsync(expression);
+    }
+
+    private Task OnInputChanged(ChangeEventArgs args)
+    {
+        return ExpressionChanged.InvokeAsync(args.Value.ToString());
+    }
+}

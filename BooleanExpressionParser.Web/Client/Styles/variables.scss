@@ -7,8 +7,6 @@ $large-shadow: 0px 2.6px 2.7px rgba(0, 0, 0, 0.045), 0px 7.1px 7.5px rgba(0, 0, 
 $nav-bar-height: 6rem;
 
 /* Colours */
-
-// Palettes
 $palettes: (
         "one": (
                 "light": (
@@ -40,10 +38,6 @@ $palettes: (
 
 $palette: one;
 
-//$palette-one: #264653 #2A9D8F #E9C46A #F4A261 #E76F51;
-//$palette-two: #386641 #6A994E #A7C957 #F2E8CF #BC4749;
-
-
 :root {
   $current-palette: map.get($palettes, $palette);
 
@@ -60,23 +54,4 @@ $palette: one;
       }
     }
   }
-  /* #region old */
-  // Light
-  //--background-one: #{$light-background-one};
-  //--background-two: #{$light-background-two};
-  //--background-three: #{$light-background-three};
-  //--text-title: #{$light-text-title};
-  //--text-body: #{$light-text-body};
-  //--primary: #{$light-primary};
-  //--on-primary: #{$light-on-primary};
-  //@include mixins.dark {
-  //    --background-one: #{$dark-background-one};
-  //    --background-two: #{$dark-background-two};
-  //    --background-three: #{$dark-background-three};
-  //    --text-title: #{$dark-text-title};
-  //    --text-body: #{$dark-text-body};
-  //    --primary: #{$dark-primary};
-  //    --on-primary: #{$dark-on-primary};
-  //}
-  /* #endregion */
 }
