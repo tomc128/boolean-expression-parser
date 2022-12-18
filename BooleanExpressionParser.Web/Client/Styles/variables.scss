@@ -4,7 +4,7 @@
 /* Construction */
 $border-radius: 8px;
 $large-shadow: 0px 2.6px 2.7px rgba(0, 0, 0, 0.045), 0px 7.1px 7.5px rgba(0, 0, 0, 0.065), 0px 17.2px 18.1px rgba(0, 0, 0, 0.085), 0px 57px 60px rgba(0, 0, 0, 0.13);
-
+$nav-bar-height: 6rem;
 
 /* Colours */
 
@@ -18,6 +18,7 @@ $palettes: (
                         "surface": #E1E4F1,
                         "on-surface-text": #19191D,
                         "control": #D4D7E7,
+                        "on-control-text": #19191D,
                         "border": #C6CADC,
                         "primary": #F15025,
                         "on-primary": #0b0c10,
@@ -29,6 +30,7 @@ $palettes: (
                         "surface": #181A23,
                         "on-surface-text": #F5E7E4,
                         "control": #272934,
+                        "on-control-text": #F5E7E4,
                         "border": #353844,
                         "primary": #F15025,
                         "on-primary": #0b0c10,

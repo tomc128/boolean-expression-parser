@@ -8,6 +8,7 @@
   --surface: #E1E4F1;
   --on-surface-text: #19191D;
   --control: #D4D7E7;
+  --on-control-text: #19191D;
   --border: #C6CADC;
   --primary: #F15025;
   --on-primary: #0b0c10;
@@ -22,6 +23,7 @@
     --surface: #181A23;
     --on-surface-text: #F5E7E4;
     --control: #272934;
+    --on-control-text: #F5E7E4;
     --border: #353844;
     --primary: #F15025;
     --on-primary: #0b0c10;
@@ -45,6 +47,10 @@ h1, h2, h3, h4, h5, h6 {
 
 div, p, span, a {
   color: var(--on-background-text);
+}
+
+main {
+  margin-top: 6rem;
 }
 
 /* #region Blazor Stuff */

@@ -16,13 +16,16 @@ body {
     background-color: var(--background);
 }
 
-
 h1, h2, h3, h4, h5, h6 {
     color: var(--on-background-title);
 }
 
 div, p, span, a {
     color: var(--on-background-text);
+}
+
+main {
+    margin-top: variables.$nav-bar-height;
 }
 
 /* #region Blazor Stuff */

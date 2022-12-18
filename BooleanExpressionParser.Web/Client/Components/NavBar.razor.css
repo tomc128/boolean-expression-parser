@@ -1,8 +1,46 @@
-﻿.container {
+/* Construction */
+/* Colours */
+:root {
+  --background: #F0F3FF;
+  --on-background-title: #F15025;
+  --on-background-text: #19191D;
+  --surface: #E1E4F1;
+  --on-surface-text: #19191D;
+  --control: #D4D7E7;
+  --on-control-text: #19191D;
+  --border: #C6CADC;
+  --primary: #F15025;
+  --on-primary: #0b0c10;
+  /* #region old */
+  /* #endregion */
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0b0c10;
+    --on-background-title: #F15025;
+    --on-background-text: #F5E7E4;
+    --surface: #181A23;
+    --on-surface-text: #F5E7E4;
+    --control: #272934;
+    --on-control-text: #F5E7E4;
+    --border: #353844;
+    --primary: #F15025;
+    --on-primary: #0b0c10;
+  }
+}
+
+.container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
   display: flex;
   justify-content: space-between;
   padding: 2rem;
+  height: 6rem;
   align-items: center;
+  background-color: var(--surface);
+  box-shadow: 0px 2.6px 2.7px rgba(0, 0, 0, 0.045), 0px 7.1px 7.5px rgba(0, 0, 0, 0.065), 0px 17.2px 18.1px rgba(0, 0, 0, 0.085), 0px 57px 60px rgba(0, 0, 0, 0.13);
 }
 .container ul {
   display: flex;
@@ -21,12 +59,14 @@
 }
 .container ul li ::deep .nav-link {
   text-decoration: none;
-  color: var(--text-body);
+  color: var(--on-surface-text);
 }
 .container ul li ::deep .nav-link.active {
-  font-weight: bold;
+  color: var(--primary);
 }
 .container ul li ::deep a {
   text-decoration: none;
-  color: var(--text-body);
+  color: var(--on-surface-text);
 }
+
+/*# sourceMappingURL=NavBar.razor.css.map */
