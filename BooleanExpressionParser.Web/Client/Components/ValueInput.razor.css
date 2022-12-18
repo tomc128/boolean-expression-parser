@@ -1,8 +1,15 @@
 /* Construction */
 /* Colours */
 :root {
-  --background: #aaa;
-  --on-background: #444;
+  --background: #F0F3FF;
+  --on-background-title: #F15025;
+  --on-background-text: #19191D;
+  --surface: #E1E4F1;
+  --on-surface-text: #19191D;
+  --control: #D4D7E7;
+  --border: #C6CADC;
+  --primary: #F15025;
+  --on-primary: #0b0c10;
   /* #region old */
   /* #endregion */
 }
@@ -13,7 +20,10 @@
     --on-background-text: #F5E7E4;
     --surface: #181A23;
     --on-surface-text: #F5E7E4;
+    --control: #272934;
     --border: #353844;
+    --primary: #F15025;
+    --on-primary: #0b0c10;
   }
 }
 

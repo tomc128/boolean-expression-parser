@@ -8,34 +8,19 @@ $large-shadow: 0px 2.6px 2.7px rgba(0, 0, 0, 0.045), 0px 7.1px 7.5px rgba(0, 0, 
 
 /* Colours */
 
-// Light
-$light-background-one: #fff;
-$light-background-two: #eee;
-$light-background-three: #ddd;
-
-$light-primary: #02c415;
-$light-on-primary: #000;
-
-$light-text-title: #1a211b;
-$light-text-body: #262926;
-
-// Dark
-$dark-background-one: #1a1f1a;
-$dark-background-two: #1b241d;
-$dark-background-three: #202e21;
-
-$dark-primary: #40ff53;
-$dark-on-primary: #000;
-
-$dark-text-title: #cae8cd;
-$dark-text-body: #c1d4c2;
-
 // Palettes
 $palettes: (
         "one": (
                 "light": (
-                        "background": "#aaa",
-                        "on-background": "#444",
+                        "background": #F0F3FF,
+                        "on-background-title": #F15025,
+                        "on-background-text": #19191D,
+                        "surface": #E1E4F1,
+                        "on-surface-text": #19191D,
+                        "control": #D4D7E7,
+                        "border": #C6CADC,
+                        "primary": #F15025,
+                        "on-primary": #0b0c10,
                 ),
                 "dark": (
                         "background": #0b0c10,
@@ -43,7 +28,10 @@ $palettes: (
                         "on-background-text": #F5E7E4,
                         "surface": #181A23,
                         "on-surface-text": #F5E7E4,
+                        "control": #272934,
                         "border": #353844,
+                        "primary": #F15025,
+                        "on-primary": #0b0c10,
                 ),
         ),
 );

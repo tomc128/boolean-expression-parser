@@ -25,18 +25,6 @@ div, p, span, a {
     color: var(--on-background-text);
 }
 
-.card {
-    display: inline-block;
-    background-color: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: variables.$border-radius;
-    padding: 1rem;
-    
-    div, p, span, a {
-        color: var(--on-surface-text);
-    }
-}
-
 /* #region Blazor Stuff */
 h1:focus {
     outline: none;
