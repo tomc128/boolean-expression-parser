@@ -1,0 +1,28 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Web.Client - Launch and Debug",
+            "type": "blazorwasm",
+            "request": "launch",
+            "preLaunchTask": "watch",
+            "cwd": "${workspaceFolder}/BooleanExpressionParser.Web/Client",
+            "browserConfig": {
+                "args": [
+                    "--remote-debugging-port=9222",
+                    "--user-data-dir=C:\\Users\\theem\\AppData\\Local\\Temp\\blazor-edge-debug",
+                    "--no-first-run",
+                ]
+            },
+            "browser": "edge",
+            "url": "https://localhost:5022"
+        },
+        {
+            "name": "Web.Server - Launch and Debug",
+            "type": "blazorwasm",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/BooleanExpressionParser.Web/Server",
+            "browser": "edge"
+        },        
+    ]
+}

@@ -1,23 +1,19 @@
-﻿/* Construction */
+/* Construction */
 /* Colours */
 :root {
-  --background-one: #fff;
-  --background-two: #eee;
-  --background-three: #ddd;
-  --text-title: #1a211b;
-  --text-body: #262926;
-  --primary: #02c415;
-  --on-primary: #000;
+  --background: #aaa;
+  --on-background: #444;
+  /* #region old */
+  /* #endregion */
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --background-one: #1a1f1a;
-    --background-two: #1b241d;
-    --background-three: #202e21;
-    --text-title: #cae8cd;
-    --text-body: #c1d4c2;
-    --primary: #40ff53;
-    --on-primary: #000;
+    --background: #0b0c10;
+    --on-background-title: #F15025;
+    --on-background-text: #F5E7E4;
+    --surface: #181A23;
+    --on-surface-text: #F5E7E4;
+    --border: #353844;
   }
 }
 
@@ -60,3 +56,5 @@ button ::deep iconify-icon {
   font-size: 1.25rem;
   color: var(--on-primary);
 }
+
+/*# sourceMappingURL=ExpressionInput.razor.css.map */

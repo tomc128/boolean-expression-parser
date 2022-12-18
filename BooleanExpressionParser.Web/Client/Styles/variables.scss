@@ -1,4 +1,5 @@
 ﻿@use './mixins';
+@use "sass:map";
 
 /* Construction */
 $border-radius: 8px;
@@ -29,23 +30,63 @@ $dark-on-primary: #000;
 $dark-text-title: #cae8cd;
 $dark-text-body: #c1d4c2;
 
+// Palettes
+$palettes: (
+        "one": (
+                "light": (
+                        "background": "#aaa",
+                        "on-background": "#444",
+                ),
+                "dark": (
+                        "background": #0b0c10,
+                        "on-background-title": #F15025,
+                        "on-background-text": #F5E7E4,
+                        "surface": #181A23,
+                        "on-surface-text": #F5E7E4,
+                        "border": #353844,
+                ),
+        ),
+);
+
+$palette: one;
+
+//$palette-one: #264653 #2A9D8F #E9C46A #F4A261 #E76F51;
+//$palette-two: #386641 #6A994E #A7C957 #F2E8CF #BC4749;
+
 
 :root {
-    --background-one: #{$light-background-one};
-    --background-two: #{$light-background-two};
-    --background-three: #{$light-background-three};
-    --text-title: #{$light-text-title};
-    --text-body: #{$light-text-body};
-    --primary: #{$light-primary};
-    --on-primary: #{$light-on-primary};
+  $current-palette: map.get($palettes, $palette);
 
-    @include mixins.dark {
-        --background-one: #{$dark-background-one};
-        --background-two: #{$dark-background-two};
-        --background-three: #{$dark-background-three};
-        --text-title: #{$dark-text-title};
-        --text-body: #{$dark-text-body};
-        --primary: #{$dark-primary};
-        --on-primary: #{$dark-on-primary};
+  @each $theme, $theme-values in $current-palette {
+    @if $theme == 'light' {
+      @each $property, $value in $theme-values {
+        --#{$property}: #{$value};
+      }
+    } @else {
+      @include mixins.dark() {
+        @each $property, $value in $theme-values {
+          --#{$property}: #{$value};
+        }
+      }
     }
+  }
+  /* #region old */
+  // Light
+  //--background-one: #{$light-background-one};
+  //--background-two: #{$light-background-two};
+  //--background-three: #{$light-background-three};
+  //--text-title: #{$light-text-title};
+  //--text-body: #{$light-text-body};
+  //--primary: #{$light-primary};
+  //--on-primary: #{$light-on-primary};
+  //@include mixins.dark {
+  //    --background-one: #{$dark-background-one};
+  //    --background-two: #{$dark-background-two};
+  //    --background-three: #{$dark-background-three};
+  //    --text-title: #{$dark-text-title};
+  //    --text-body: #{$dark-text-body};
+  //    --primary: #{$dark-primary};
+  //    --on-primary: #{$dark-on-primary};
+  //}
+  /* #endregion */
 }

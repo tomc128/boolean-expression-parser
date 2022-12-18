@@ -10,6 +10,8 @@
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
+      "hotReloadEnabled": true,
+      "hotReloadProfile": "aspnetcore",
       "inspectUri": "{wsProtocol}://{url.hostname}:{url.port}/_framework/debug/ws-proxy?browser={browserInspectUri}",
       "applicationUrl": "http://localhost:5022",
       "environmentVariables": {
@@ -20,6 +22,7 @@
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
+      "hotReloadEnabled": true,
       "inspectUri": "{wsProtocol}://{url.hostname}:{url.port}/_framework/debug/ws-proxy?browser={browserInspectUri}",
       "applicationUrl": "https://localhost:7022;http://localhost:5022",
       "environmentVariables": {
@@ -33,6 +36,23 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
+    },
+    "Rider: http": {
+      "commandName": "Project",
+      "applicationUrl": "http://+:5000",
+      "inspectUri": "{wsProtocol}://{url.hostname}:{url.port}/_framework/debug/ws-proxy?browser={browserInspectUri}",
+      "jsWebView2Debugging": true,
+      "hotReloadEnabled": true,
+      "hotReloadProfile": "aspnetcore",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    "Rider: watch": {
+      "commandName": "Executable",
+      "workingDirectory": "$(ProjectDir)",
+      "executablePath": "dotnet.exe",
+      "commandLineArgs": "watch run debug --launch-profile \"Rider: http\""
     }
   }
 }

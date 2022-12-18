@@ -1,3 +1,6 @@
+// This file gets compiled to wwwroot/css/app.css, instead of ./app.css
+// This is with .NET web compiler, not Rider.
+
 @use './variables';
 
 @import url('https://fonts.googleapis.com/css2?family=Figtree:wght@400;700&family=JetBrains+Mono&display=swap');
@@ -10,15 +13,28 @@
 }
 
 body {
-    background-color: var(--background-one);
+    background-color: var(--background);
 }
+
 
 h1, h2, h3, h4, h5, h6 {
-    color: var(--text-title);
+    color: var(--on-background-title);
 }
 
-div, p, span, a, {
-    color: var(--text-body);
+div, p, span, a {
+    color: var(--on-background-text);
+}
+
+.card {
+    display: inline-block;
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: variables.$border-radius;
+    padding: 1rem;
+    
+    div, p, span, a {
+        color: var(--on-surface-text);
+    }
 }
 
 /* #region Blazor Stuff */

@@ -1,1 +1,1 @@
-﻿:root{--background-one:#fff;--background-two:#eee;--background-three:#ddd;--text-title:#1a211b;--text-body:#262926;--primary:#02c415;--on-primary:#000;}@media(prefers-color-scheme:dark){:root{--background-one:#1a1f1a;--background-two:#1b241d;--background-three:#202e21;--text-title:#cae8cd;--text-body:#c1d4c2;--primary:#40ff53;--on-primary:#000;}}
+﻿:root{--background:#aaa;--on-background:#444;}@media(prefers-color-scheme:dark){:root{--background:#0b0c10;--on-background-title:#f15025;--on-background-text:#f5e7e4;--surface:#181a23;--on-surface-text:#f5e7e4;--border:#353844;}}
