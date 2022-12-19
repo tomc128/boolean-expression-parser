@@ -36,23 +36,6 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
-    },
-    "Rider: http": {
-      "commandName": "Project",
-      "applicationUrl": "http://+:5000",
-      "inspectUri": "{wsProtocol}://{url.hostname}:{url.port}/_framework/debug/ws-proxy?browser={browserInspectUri}",
-      "jsWebView2Debugging": true,
-      "hotReloadEnabled": true,
-      "hotReloadProfile": "aspnetcore",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
-    },
-    "Rider: watch": {
-      "commandName": "Executable",
-      "workingDirectory": "$(ProjectDir)",
-      "executablePath": "dotnet.exe",
-      "commandLineArgs": "watch run debug --launch-profile \"Rider: http\""
     }
   }
 }

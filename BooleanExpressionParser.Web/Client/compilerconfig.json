@@ -6,8 +6,8 @@
     "useNodeSass": false
   },
   {
-    "outputFile": "Pages/TruthTable.razor.css",
-    "inputFile": "Pages/TruthTable.razor.scss",
+    "outputFile": "Pages/TruthTablePage.razor.css",
+    "inputFile": "Pages/TruthTablePage.razor.scss",
     "sourceMap": false,
     "useNodeSass": false
   },

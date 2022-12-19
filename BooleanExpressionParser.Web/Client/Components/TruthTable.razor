@@ -1,0 +1,37 @@
+﻿
+@if (Ast is not null && Table is not null && Label is not null)
+{
+    <table>
+        <thead>
+        @foreach (var t in Ast.Variables)
+        {
+            <th>@t</th>
+        }
+        <th>@Label</th>
+        </thead>
+        <tbody>
+        @foreach (var row in Table)
+        {
+            <tr>
+                @for (var i = 0; i < row.Length; i++)
+                {
+                    var stateClass = row[i] ? "true" : "false";
+                    var content = row[i] ? "1" : "0";
+                    var resultClass = i == row.Length - 1 ? "result" : "";
+                    
+                    <td class="@stateClass @resultClass">@content</td>
+                }
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+
+
+@code {
+
+    [Parameter] public string? Label { get; set;}
+    [Parameter] public Ast? Ast { get; set; }
+    [Parameter] public List<bool[]>? Table { get; set;}
+
+}

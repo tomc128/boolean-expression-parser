@@ -1,4 +1,4 @@
-/* Construction */
+﻿/* Construction */
 /* Colours */
 :root {
   --background: #F0F3FF;
@@ -66,5 +66,3 @@ button ::deep iconify-icon {
   font-size: 1.25rem;
   color: var(--on-primary);
 }
-
-/*# sourceMappingURL=ExpressionInput.razor.css.map */

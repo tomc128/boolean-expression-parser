@@ -1,17 +1,20 @@
 ﻿@page "/"
 @using BooleanExpressionParser.Web.Client.Components
+@using BooleanExpressionParser.Web.Client.Formatters
 
 <PageTitle>BEP - Boolean Expression Parser</PageTitle>
 
 <div class="container">
     <div class="input">
-        <ExpressionMultiInput ExpressionChanged="OnExpressionChanged" ButtonClicked="OnButtonClicked" Method="@method">
+        <ExpressionMultiInput ExpressionChanged="OnExpressionChanged" ButtonClicked="OnButtonClicked" MethodChanged="OnMethodChanged">
             Go
         </ExpressionMultiInput>
     </div>
 
     <div class="output">
-        <p>Result: @result</p>
+        @((MarkupString)result)
+        
+        <TruthTable Ast="@ast" Label="@result" Table="truthTable"></TruthTable>
     </div>
 </div>
 
@@ -19,22 +22,81 @@
 
     private bool resultShown = false;
     private Ast? ast;
-    private string? method;
+    private string method = "truth-table";
+    private string? expression;
 
     private string result = "Result";
+    private List<bool[]>? truthTable;
 
     private void OnExpressionChanged()
     {
         resultShown = false;
-        Console.WriteLine("Expression changed, method: " + method);
     }
 
     private void OnButtonClicked(string expression)
     {
         if (string.IsNullOrWhiteSpace(expression)) return;
 
-        Console.WriteLine("Button clicked, expression: " + expression);
-        result = "Result, method: " + method + ", expression: " + expression;
+        this.expression = expression;
+        ParseExpression();
     }
 
+    private void OnMethodChanged(string method)
+    {
+        this.method = method;
+    }
+
+    private void ParseExpression()
+    {
+        if (string.IsNullOrWhiteSpace(expression)) return;
+
+        var wrapper = new ExpressionWrapper(expression);
+        
+        var tokeniser = new Tokeniser(wrapper.Expression);
+        var infixTokens = tokeniser.Tokenise();
+
+        var parser = new Parser();
+        var postfixTokens = parser.InfixToPostfix(infixTokens);
+
+        ast = parser.GrowAst(postfixTokens, wrapper.VariableOrder);
+        
+        var formatter = new HTMLFormatter();
+
+        switch (method)
+        {
+            case "truth-table":
+                int numCombinations = (int)Math.Pow(2, ast.Variables.Count);
+                var table = new List<bool[]>();
+                for (int i = 0; i < numCombinations; i++)
+                {
+                    var binary = Convert.ToString(i, 2).PadLeft(ast.Variables.Count, '0');
+                    var values = binary.Select(c => c == '1').ToArray();
+
+                    var variables = ast.Variables.Zip(values, (k, v) => new { k, v }).ToDictionary(x => x.k, x => x.v);
+
+                    var result = ast.Root.Evaluate(variables);
+                    table.Add(values.Append(result).ToArray());
+                }
+
+                truthTable = table;
+                 
+                break;
+                
+            case "evaluate":
+                result = ast.Root.Evaluate(new()
+                {
+                    { "A", true },
+                    { "B", true },
+                }) ? "true" : "false";
+                break;
+                
+            case "notation-convert":
+                result = formatter.FormatTokens(postfixTokens);
+                break;
+                
+            default:
+                result = "Unknown method selected.";
+                break;
+        }
+    }
 }

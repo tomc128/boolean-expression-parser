@@ -1,0 +1,10 @@
+﻿<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="BEP.Web.Client - watch" type="RunDotNetWatch" factoryName="RunDotNetWatch">
+    <option name="exePath" value="$USER_HOME$/.nuget/packages/microsoft.aspnetcore.components.webassembly.devserver/7.0.1/tools/blazor-devserver.dll" />
+    <option name="programParameters" value="" />
+    <option name="projectFilePath" value="$PROJECT_DIR$/BooleanExpressionParser.Web/Client/BooleanExpressionParser.Web.Client.csproj" />
+    <option name="projectTfm" value="net7.0" />
+    <option name="workingDirectory" value="$PROJECT_DIR$/BooleanExpressionParser.Web/Client" />
+    <method v="2" />
+  </configuration>
+</component>

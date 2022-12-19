@@ -1,4 +1,4 @@
-﻿.table-container {
+.table-container {
   margin: 1rem;
 }
 
@@ -30,3 +30,5 @@
 ::deep .result {
   border-left: 1px solid rgba(0, 0, 0, 0.2);
 }
+
+/*# sourceMappingURL=TruthTablePage.razor.css.map */

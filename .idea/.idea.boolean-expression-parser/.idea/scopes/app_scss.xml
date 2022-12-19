@@ -1,0 +1,3 @@
+﻿<component name="DependencyValidationManager">
+  <scope name="app.scss" pattern="file:BooleanExpressionParser.Web/Client/Styles/app.scss" />
+</component>
