@@ -12,25 +12,34 @@
     </div>
 
     <div class="output">
-        @((MarkupString)result)
-        
-        <TruthTable Ast="@ast" Label="@result" Table="truthTable"></TruthTable>
+        @if (showResult)
+        {
+            @result
+        }
+
+        @if (showTruthTable)
+        {
+            <TruthTable Ast="@ast" Label="@result" Table="truthTable"></TruthTable>
+        }
     </div>
 </div>
 
 @code {
 
-    private bool resultShown = false;
     private Ast? ast;
     private string method = "truth-table";
     private string? expression;
 
+    private bool showResult = false;
     private string result = "Result";
+
+    private bool showTruthTable = false;
     private List<bool[]>? truthTable;
 
     private void OnExpressionChanged()
     {
-        resultShown = false;
+        showResult = false;
+        showTruthTable = false;
     }
 
     private void OnButtonClicked(string expression)
@@ -78,8 +87,10 @@
                     table.Add(values.Append(result).ToArray());
                 }
 
+                showResult = false;
+                showTruthTable = true;
+                result = wrapper.Expression;
                 truthTable = table;
-                 
                 break;
                 
             case "evaluate":

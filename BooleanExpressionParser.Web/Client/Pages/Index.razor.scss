@@ -1,10 +1,17 @@
 ﻿.container {
   display: flex;
-  padding-top: 3rem;
+  padding: 3rem 0;
   flex-direction: column;
+  gap: 3rem;
   
   .input {
     align-self: center;
+  }
+  
+  .output {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 }
 

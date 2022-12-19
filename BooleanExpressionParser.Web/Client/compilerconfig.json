@@ -12,6 +12,12 @@
     "useNodeSass": false
   },
   {
+    "outputFile": "Components/TruthTable.razor.css",
+    "inputFile": "Components/TruthTable.razor.scss",
+    "sourceMap": false,
+    "useNodeSass": false
+  },
+  {
     "outputFile": "Components/ExpressionInput.razor.css",
     "inputFile": "Components/ExpressionInput.razor.scss",
     "sourceMap": false,
