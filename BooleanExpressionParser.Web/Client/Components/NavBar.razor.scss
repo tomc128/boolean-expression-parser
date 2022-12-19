@@ -1,4 +1,5 @@
 ﻿@use '../Styles/variables';
+@use '../Styles/mixins';
 
 .container {
     position: fixed;
@@ -11,8 +12,8 @@
     height: variables.$nav-bar-height;
     align-items: center;
     background-color: var(--surface);
-    box-shadow: variables.$large-shadow;
-
+    border-bottom: 1px solid var(--border);
+    
     ul {
         display: flex;
         align-items: center;

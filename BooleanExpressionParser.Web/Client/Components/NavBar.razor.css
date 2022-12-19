@@ -1,4 +1,4 @@
-﻿/* Construction */
+/* Construction */
 /* Colours */
 :root {
   --background: #F0F3FF;
@@ -38,7 +38,7 @@
   height: 6rem;
   align-items: center;
   background-color: var(--surface);
-  box-shadow: 0px 2.6px 2.7px rgba(0, 0, 0, 0.045), 0px 7.1px 7.5px rgba(0, 0, 0, 0.065), 0px 17.2px 18.1px rgba(0, 0, 0, 0.085), 0px 57px 60px rgba(0, 0, 0, 0.13);
+  border-bottom: 1px solid var(--border);
 }
 .container ul {
   display: flex;
@@ -66,3 +66,5 @@
   text-decoration: none;
   color: var(--on-surface-text);
 }
+
+/*# sourceMappingURL=NavBar.razor.css.map */

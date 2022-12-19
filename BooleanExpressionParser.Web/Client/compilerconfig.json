@@ -6,12 +6,6 @@
     "useNodeSass": false
   },
   {
-    "outputFile": "Pages/TruthTablePage.razor.css",
-    "inputFile": "Pages/TruthTablePage.razor.scss",
-    "sourceMap": false,
-    "useNodeSass": false
-  },
-  {
     "outputFile": "Components/TruthTable.razor.css",
     "inputFile": "Components/TruthTable.razor.scss",
     "sourceMap": false,
